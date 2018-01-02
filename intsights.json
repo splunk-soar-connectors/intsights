@@ -1,19 +1,19 @@
 {
-  "appid" : "ef0b1f6f-a05a-4f41-8f83-1e659771b6bb",
-  "name" : "Intsights",
-  "description" : "This app integrates with Intsights Cyber Intelligence.",
-  "type" : "threat intel",
-  "main_module" : "intsights_connector.py",
-  "app_version" : "1.0.0",
-  "product_vendor" : "Intsights",
-  "product_name" : "Intsights Cyber Intelligence",
+  "appid": "ef0b1f6f-a05a-4f41-8f83-1e659771b6bb",
+  "name": "Intsights",
+  "description": "This app integrates with Intsights Cyber Intelligence.",
+  "type": "threat intel",
+  "main_module": "intsights_connector.py",
+  "app_version": "1.0.1",
+  "product_vendor": "Intsights",
+  "product_name": "Intsights Cyber Intelligence",
   "product_version_regex": ".*",
   "logo": "intsights.png",
   "min_phantom_version": "1.0.240",
-  "publisher" : "Blackstone, Inc",
+  "publisher": "Blackstone, Inc",
   "package_name": "blackstone_intsights",
   "license": "Copyright (c) Blackstone 2016",
-  "consolidate_widgets" : false,
+  "consolidate_widgets": false,
   "configuration": {
     "email": {
       "data_type": "string",
@@ -50,7 +50,12 @@
         "hash": {
           "description": "Hash of the binary to hunt",
           "data_type": "string",
-          "contains": ["hash", "sha256", "sha1", "md5"],
+          "contains": [
+            "hash",
+            "sha256",
+            "sha1",
+            "md5"
+          ],
           "required": true
         }
       },
@@ -65,7 +70,9 @@
         {
           "data_path": "action_result.data.*.Value",
           "data_type": "string",
-          "contains": ["hash"],
+          "contains": [
+            "hash"
+          ],
           "column_name": "Hash",
           "column_order": 0
         },
@@ -82,7 +89,7 @@
           "column_order": 2
         }
       ]
-    },  
+    },
     {
       "action": "hunt domain",
       "identifier": "hunt_domain",
@@ -94,7 +101,9 @@
         "domain": {
           "description": "Domain to hunt",
           "data_type": "string",
-          "contains": ["domain"],
+          "contains": [
+            "domain"
+          ],
           "required": true
         }
       },
@@ -109,7 +118,9 @@
         {
           "data_path": "action_result.data.*.Value",
           "data_type": "string",
-          "contains": ["domain"],
+          "contains": [
+            "domain"
+          ],
           "column_name": "Domain",
           "column_order": 0
         },
@@ -126,7 +137,7 @@
           "column_order": 2
         }
       ]
-    },  
+    },
     {
       "action": "hunt ip",
       "identifier": "hunt_ip",
@@ -138,7 +149,9 @@
         "ip": {
           "description": "IP to hunt",
           "data_type": "string",
-          "contains": ["ip"],
+          "contains": [
+            "ip"
+          ],
           "required": true
         }
       },
@@ -153,7 +166,9 @@
         {
           "data_path": "action_result.data.*.Value",
           "data_type": "string",
-          "contains": ["ip"],
+          "contains": [
+            "ip"
+          ],
           "column_name": "IP",
           "column_order": 0
         },
@@ -170,7 +185,7 @@
           "column_order": 2
         }
       ]
-    },  
+    },
     {
       "action": "hunt url",
       "identifier": "hunt_url",
@@ -182,7 +197,9 @@
         "url": {
           "description": "URL to hunt",
           "data_type": "string",
-          "contains": ["url"],
+          "contains": [
+            "url"
+          ],
           "required": true
         }
       },
@@ -197,7 +214,9 @@
         {
           "data_path": "action_result.data.*.Value",
           "data_type": "string",
-          "contains": ["url"],
+          "contains": [
+            "url"
+          ],
           "column_name": "URL",
           "column_order": 0
         },
@@ -253,5 +272,6 @@
       },
       "output": []
     }
-  ]
+  ],
+  "utctime_updated": "2018-01-02T20:46:00.000000Z"
 }
