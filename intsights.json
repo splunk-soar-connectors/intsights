@@ -1,16 +1,16 @@
 {
   "appid" : "498226d5-a7d6-440b-b800-5a1afbe9e8d1",
   "name" : "IntSights",
-  "description" : "This app integrates with IntSights Cyber Intelligence.",
+  "description" : "This app integrates with IntSights Cyber Intelligence",
   "type" : "threat intel",
   "main_module" : "intsights_connector.py",
-  "app_version" : "1.0.0",
+  "app_version" : "2.0.0",
   "product_vendor" : "IntSights",
   "product_name" : "IntSights Cyber Intelligence",
   "product_version_regex": ".*",
-  "logo": "intsights.png",
-  "logo_dark": "intsights_dark.png",
-  "min_phantom_version": "1.0.240",
+  "logo": "logo_intsights.svg",
+  "logo_dark": "logo_intsights_dark.svg",
+  "min_phantom_version": "4.2.7532",
   "publisher" : "IntSights",
   "package_name": "phantom_intsights",
   "license": "Copyright (c) 2019 IntSights Cyber Intelligence Ltd.",
@@ -20,8 +20,6 @@
       "description": "User's Account ID",
       "data_type": "string",
       "required": true,
-      "value_list": [],
-      "default": "",
       "order": 0
     },
     "api_key": {
@@ -35,7 +33,7 @@
     {
       "action": "test connectivity",
       "identifier": "test_asset_connectivity",
-      "description": "Validate the asset configuration for connectivity.",
+      "description": "Validate the asset configuration for connectivity",
       "type": "test",
       "read_only": true,
       "versions": "EQ(*)",
@@ -45,7 +43,7 @@
     {
       "action": "hunt file",
       "identifier": "hunt_file",
-      "description": "Look for information about a file hash in the Intsights database.",
+      "description": "Look for information about a file hash in the Intsights database",
       "type": "investigate",
       "read_only": true,
       "versions": "EQ(*)",
@@ -53,7 +51,12 @@
         "hash": {
           "description": "Hash of the binary to hunt",
           "data_type": "string",
-          "contains": ["hash", "sha256", "sha1", "md5"],
+          "contains": [
+            "hash", 
+            "sha256", 
+            "sha1", 
+            "md5"
+          ],
           "required": true
         }
       },
@@ -68,7 +71,12 @@
         {
           "data_path": "action_result.data.*.Value",
           "data_type": "string",
-          "contains": ["hash", "sha256", "sha1", "md5"],
+          "contains": [
+            "hash", 
+            "sha256", 
+            "sha1", 
+            "md5"
+          ],
           "column_name": "File",
           "column_order": 0
         },
@@ -107,7 +115,7 @@
     {
       "action": "hunt domain",
       "identifier": "hunt_domain",
-      "description": "Look for information about a domain in the Intsights database.",
+      "description": "Look for information about a domain in the Intsights database",
       "type": "investigate",
       "read_only": true,
       "versions": "EQ(*)",
@@ -115,7 +123,9 @@
         "domain": {
           "description": "Domain to hunt",
           "data_type": "string",
-          "contains": ["domain"],
+          "contains": [
+            "domain"
+          ],
           "required": true
         }
       },
@@ -130,7 +140,9 @@
         {
           "data_path": "action_result.data.*.Value",
           "data_type": "string",
-          "contains": ["domain"],
+          "contains": [
+            "domain"
+          ],
           "column_name": "Domain",
           "column_order": 0
         },
@@ -169,7 +181,7 @@
     {
       "action": "hunt ip",
       "identifier": "hunt_ip",
-      "description": "Look for information about an IP in the Intsights database.",
+      "description": "Look for information about an IP in the Intsights database",
       "type": "investigate",
       "read_only": true,
       "versions": "EQ(*)",
@@ -177,7 +189,9 @@
         "ip": {
           "description": "IP to hunt",
           "data_type": "string",
-          "contains": ["ip"],
+          "contains": [
+            "ip"
+          ],
           "required": true
         }
       },
@@ -192,7 +206,9 @@
         {
           "data_path": "action_result.data.*.Value",
           "data_type": "string",
-          "contains": ["ip"],
+          "contains": [
+            "ip"
+          ],
           "column_name": "IP",
           "column_order": 0
         },
@@ -231,7 +247,7 @@
     {
       "action": "hunt url",
       "identifier": "hunt_url",
-      "description": "Look for information about a URL in the Intsights database.",
+      "description": "Look for information about a URL in the Intsights database",
       "type": "investigate",
       "read_only": true,
       "versions": "EQ(*)",
@@ -239,7 +255,9 @@
         "url": {
           "description": "URL to hunt",
           "data_type": "string",
-          "contains": ["url"],
+          "contains": [
+            "url"
+          ],
           "required": true
         }
       },
@@ -293,7 +311,7 @@
     {
       "action": "on poll",
       "identifier": "on_poll",
-      "description": "Callback action for the on_poll ingest functionality.",
+      "description": "Callback action for the on_poll ingest functionality",
       "type": "ingest",
       "read_only": true,
       "versions": "EQ(*)",
@@ -301,29 +319,29 @@
         "container_id": {
           "data_type": "string",
           "order": 0,
-          "description": "Container IDs to limit the ingestion to."
+          "description": "Container IDs to limit the ingestion to"
         },
         "start_time": {
           "data_type": "numeric",
           "order": 1,
-          "description": "Start of time range, in epoch time (milliseconds).",
+          "description": "Start of time range, in epoch time (milliseconds)",
           "verbose": "If not specified, the default is past 10 days"
         },
         "end_time": {
           "data_type": "numeric",
           "order": 2,
-          "description": "End of time range, in epoch time (milliseconds).",
+          "description": "End of time range, in epoch time (milliseconds)",
           "verbose": "If not specified, the default is now"
         },
         "container_count": {
           "data_type": "numeric",
           "order": 3,
-          "description": "Maximum number of container records to query for."
+          "description": "Maximum number of container records to query for"
         },
         "artifact_count": {
           "data_type": "numeric",
           "order": 4,
-          "description": "Maximum number of artifact records to query for."
+          "description": "Maximum number of artifact records to query for"
         }
       },
       "output": []
@@ -331,19 +349,19 @@
     {
       "action": "close alert",
       "identifier": "close_alert",
-      "description": "Close an alert in the IntSights dashboard.",
+      "description": "Close an alert in the IntSights dashboard",
       "type": "generic",
       "read_only": true,
       "versions": "EQ(*)",
       "parameters": {
         "alert_id": {
-          "description": "IntSights alert ID to close.",
+          "description": "IntSights alert ID to close",
           "data_type": "string",
           "order": 0,
           "required": true
         },
         "reason": {
-          "description": "IntSights alert's closure reason.",
+          "description": "IntSights alert's closure reason",
           "data_type": "string",
           "value_list": [
             "ProblemSolved",
@@ -359,13 +377,13 @@
           "required": true
         },
         "free_text": {
-          "description": "IntSights alert's comments.",
+          "description": "IntSights alert's comments",
           "data_type": "string",
           "order": 2,
           "required": false
         },
         "rate": {
-          "description": "IntSights Alert's rate (0-5).",
+          "description": "IntSights Alert's rate (0-5)",
           "data_type": "numeric",
           "value_list": [
             0,
@@ -379,7 +397,7 @@
           "required": false
         },
         "is_hidden": {
-          "description": "Alert's hidden status (Delete alert from the account instance - only when reason is FalsePositive).",
+          "description": "Alert's hidden status (Delete alert from the account instance - only when reason is FalsePositive)",
           "data_type": "boolean",
           "order": 4,
           "required": false
@@ -390,13 +408,13 @@
     {
       "action": "takedown request",
       "identifier": "takedown_request",
-      "description": "Initiate a takedown request of an alert from the IntSights dashboard.",
+      "description": "Initiate a takedown request of an alert from the IntSights dashboard",
       "type": "generic",
       "read_only": true,
       "versions": "EQ(*)",
       "parameters": {
         "alert_id": {
-          "description": "IntSights alert ID to takedown.",
+          "description": "IntSights alert ID to takedown",
           "data_type": "string",
           "required": true
         }
