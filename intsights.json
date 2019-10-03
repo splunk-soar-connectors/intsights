@@ -69,6 +69,24 @@
       },
       "output": [
         {
+          "data_path": "action_result.status",
+          "data_type": "string",
+          "example_values": [
+              "success",
+              "failed"
+          ]
+        },
+        {
+          "data_path": "action_result.parameter.hash",
+          "data_type": "string",
+          "contains": [
+            "hash", 
+            "sha256", 
+            "sha1", 
+            "md5"
+          ]
+        },
+        {
           "data_path": "action_result.data.*.Value",
           "data_type": "string",
           "contains": [
@@ -109,6 +127,17 @@
           "data_type": "string",
           "column_name": "Link To Investigation",
           "column_order": 5
+        },
+        {
+          "data_path": "action_result.summary",
+          "data_type": "string"
+        },
+        {
+          "data_path": "action_result.message",
+          "data_type": "string",
+          "example_values": [
+              "Num results: 864"
+          ]
         }
       ]
     },  
@@ -137,6 +166,21 @@
         "height": 5
       },
       "output": [
+        {
+          "data_path": "action_result.status",
+          "data_type": "string",
+          "example_values": [
+              "success",
+              "failed"
+          ]
+        },
+        {
+          "data_path": "action_result.parameter.domain",
+          "data_type": "string",
+          "contains": [
+            "domain"
+          ]
+        },
         {
           "data_path": "action_result.data.*.Value",
           "data_type": "string",
@@ -175,6 +219,17 @@
           "data_type": "string",
           "column_name": "Link To Investigation",
           "column_order": 5
+        },
+        {
+          "data_path": "action_result.summary",
+          "data_type": "string"
+        },
+        {
+          "data_path": "action_result.message",
+          "data_type": "string",
+          "example_values": [
+              "Num results: 864"
+          ]
         }
       ]
     },  
@@ -203,6 +258,21 @@
         "height": 5
       },
       "output": [
+        {
+          "data_path": "action_result.status",
+          "data_type": "string",
+          "example_values": [
+              "success",
+              "failed"
+          ]
+        },
+        {
+          "data_path": "action_result.parameter.ip",
+          "data_type": "string",
+          "contains": [
+            "ip"
+          ]
+        },
         {
           "data_path": "action_result.data.*.Value",
           "data_type": "string",
@@ -241,6 +311,17 @@
           "data_type": "string",
           "column_name": "Link To Investigation",
           "column_order": 5
+        },
+        {
+          "data_path": "action_result.summary",
+          "data_type": "string"
+        },
+        {
+          "data_path": "action_result.message",
+          "data_type": "string",
+          "example_values": [
+              "Num results: 864"
+          ]
         }
       ]
     },  
@@ -270,9 +351,26 @@
       },
       "output": [
         {
+          "data_path": "action_result.status",
+          "data_type": "string",
+          "example_values": [
+              "success",
+              "failed"
+          ]
+        },
+        {
+          "data_path": "action_result.parameter.url",
+          "data_type": "string",
+          "contains": [
+            "url"
+          ]
+        },
+        {
           "data_path": "action_result.data.*.Value",
           "data_type": "string",
-          "contains": ["url"],
+          "contains": [
+            "url"
+          ],
           "column_name": "URL",
           "column_order": 0
         },
@@ -305,6 +403,17 @@
           "data_type": "string",
           "column_name": "Link To Investigation",
           "column_order": 5
+        },
+        {
+          "data_path": "action_result.summary",
+          "data_type": "string"
+        },
+        {
+          "data_path": "action_result.message",
+          "data_type": "string",
+          "example_values": [
+              "Num results: 864"
+          ]
         }
       ]
     },
@@ -403,7 +512,57 @@
           "required": false
         }
       },
-      "output": []
+      "render": {
+        "width": 12,
+        "title": "Close Alert",
+        "type": "table",
+        "height": 5
+      },
+      "output": [
+        {
+          "data_path": "action_result.status",
+          "data_type": "string",
+          "example_values": [
+              "success",
+              "failed"
+          ]
+        },
+        {
+          "data_path": "action_result.parameter.rate",
+          "data_type": "numeric"
+        },
+        {
+          "data_path": "action_result.parameter.free_text",
+          "data_type": "string"
+        },
+        {
+          "data_path": "action_result.parameter.reason",
+          "data_type": "string"
+        },
+        {
+          "data_path": "action_result.parameter.is_hidden",
+          "data_type": "boolean"
+        },
+        {
+          "data_path": "action_result.parameter.alert_id",
+          "data_type": "string"
+        },
+        {
+          "data_path": "action_result.data.*",
+          "data_type": "string"
+        },
+        {
+          "data_path": "action_result.summary",
+          "data_type": "string"
+        },
+        {
+          "data_path": "action_result.message",
+          "data_type": "string",
+          "example_values": [
+              "Num results: 864"
+          ]
+        }
+      ]
     },
     {
       "action": "takedown request",
@@ -419,7 +578,41 @@
           "required": true
         }
       },
-      "output": []
+      "render": {
+        "width": 12,
+        "title": "Takedown Request",
+        "type": "table",
+        "height": 5
+      },
+      "output": [
+        {
+          "data_path": "action_result.status",
+          "data_type": "string",
+          "example_values": [
+              "success",
+              "failed"
+          ]
+        },
+        {
+          "data_path": "action_result.parameter.alert_id",
+          "data_type": "string"
+        },
+        {
+          "data_path": "action_result.data.*",
+          "data_type": "string"
+        },
+        {
+          "data_path": "action_result.summary",
+          "data_type": "string"
+        },
+        {
+          "data_path": "action_result.message",
+          "data_type": "string",
+          "example_values": [
+              "Num results: 864"
+          ]
+        }
+      ]
     }
   ]
 }
