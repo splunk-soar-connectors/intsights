@@ -3,7 +3,7 @@
   "name" : "IntSights",
   "description" : "This app integrates with IntSights Cyber Intelligence",
   "type" : "threat intel",
-  "main_module" : "intsights_connector.py",
+  "main_module" : "intsights_connector.pyc",
   "app_version" : "2.0.0",
   "product_vendor" : "IntSights",
   "product_name" : "IntSights Cyber Intelligence",
@@ -57,6 +57,7 @@
             "sha1", 
             "md5"
           ],
+          "primary": true,
           "required": true
         }
       },
@@ -138,6 +139,20 @@
           "example_values": [
               "Num results: 864"
           ]
+        },
+        {
+          "data_path": "summary.total_objects",
+          "example_values": [
+              1
+          ],
+          "data_type": "numeric"
+        },
+        {
+          "data_path": "summary.total_objects_successful",
+          "example_values": [
+              1
+          ],
+          "data_type": "numeric"
         }
       ]
     },  
@@ -155,6 +170,7 @@
           "contains": [
             "domain"
           ],
+          "primary": true,
           "required": true
         }
       },
@@ -230,6 +246,20 @@
           "example_values": [
               "Num results: 864"
           ]
+        },
+        {
+          "data_path": "summary.total_objects",
+          "example_values": [
+              1
+          ],
+          "data_type": "numeric"
+        },
+        {
+          "data_path": "summary.total_objects_successful",
+          "example_values": [
+              1
+          ],
+          "data_type": "numeric"
         }
       ]
     },  
@@ -247,6 +277,7 @@
           "contains": [
             "ip"
           ],
+          "primary": true,
           "required": true
         }
       },
@@ -322,6 +353,20 @@
           "example_values": [
               "Num results: 864"
           ]
+        },
+        {
+          "data_path": "summary.total_objects",
+          "example_values": [
+              1
+          ],
+          "data_type": "numeric"
+        },
+        {
+          "data_path": "summary.total_objects_successful",
+          "example_values": [
+              1
+          ],
+          "data_type": "numeric"
         }
       ]
     },  
@@ -339,6 +384,7 @@
           "contains": [
             "url"
           ],
+          "primary": true,
           "required": true
         }
       },
@@ -414,6 +460,20 @@
           "example_values": [
               "Num results: 864"
           ]
+        },
+        {
+          "data_path": "summary.total_objects",
+          "example_values": [
+              1
+          ],
+          "data_type": "numeric"
+        },
+        {
+          "data_path": "summary.total_objects_successful",
+          "example_values": [
+              1
+          ],
+          "data_type": "numeric"
         }
       ]
     },
@@ -433,14 +493,12 @@
         "start_time": {
           "data_type": "numeric",
           "order": 1,
-          "description": "Start of time range, in epoch time (milliseconds)",
-          "verbose": "If not specified, the default is past 10 days"
+          "description": "Start of time range, in epoch time (milliseconds). Default: 10 days"
         },
         "end_time": {
           "data_type": "numeric",
           "order": 2,
-          "description": "End of time range, in epoch time (milliseconds)",
-          "verbose": "If not specified, the default is now"
+          "description": "End of time range, in epoch time (milliseconds). Default: Now"
         },
         "container_count": {
           "data_type": "numeric",
@@ -460,7 +518,7 @@
       "identifier": "close_alert",
       "description": "Close an alert in the IntSights dashboard",
       "type": "generic",
-      "read_only": true,
+      "read_only": false,
       "versions": "EQ(*)",
       "parameters": {
         "alert_id": {
@@ -561,6 +619,20 @@
           "example_values": [
               "Num results: 864"
           ]
+        },
+        {
+          "data_path": "summary.total_objects",
+          "example_values": [
+              1
+          ],
+          "data_type": "numeric"
+        },
+        {
+          "data_path": "summary.total_objects_successful",
+          "example_values": [
+              1
+          ],
+          "data_type": "numeric"
         }
       ]
     },
@@ -569,7 +641,7 @@
       "identifier": "takedown_request",
       "description": "Initiate a takedown request of an alert from the IntSights dashboard",
       "type": "generic",
-      "read_only": true,
+      "read_only": false,
       "versions": "EQ(*)",
       "parameters": {
         "alert_id": {
@@ -611,6 +683,20 @@
           "example_values": [
               "Num results: 864"
           ]
+        },
+        {
+          "data_path": "summary.total_objects",
+          "example_values": [
+              1
+          ],
+          "data_type": "numeric"
+        },
+        {
+          "data_path": "summary.total_objects_successful",
+          "example_values": [
+              1
+          ],
+          "data_type": "numeric"
         }
       ]
     }
