@@ -1,20 +1,20 @@
 {
-  "appid" : "498226d5-a7d6-440b-b800-5a1afbe9e8d1",
-  "name" : "IntSights",
-  "description" : "This app integrates with IntSights Cyber Intelligence",
-  "type" : "threat intel",
-  "main_module" : "intsights_connector.pyc",
-  "app_version" : "2.0.0",
-  "product_vendor" : "IntSights",
-  "product_name" : "IntSights Cyber Intelligence",
+  "appid": "498226d5-a7d6-440b-b800-5a1afbe9e8d1",
+  "name": "IntSights",
+  "description": "This app integrates with IntSights Cyber Intelligence",
+  "type": "threat intel",
+  "main_module": "intsights_connector.pyc",
+  "app_version": "2.0.0",
+  "product_vendor": "IntSights",
+  "product_name": "IntSights Cyber Intelligence",
   "product_version_regex": ".*",
   "logo": "logo_intsights.svg",
   "logo_dark": "logo_intsights_dark.svg",
   "min_phantom_version": "4.2.7532",
-  "publisher" : "IntSights",
+  "publisher": "IntSights",
   "package_name": "phantom_intsights",
   "license": "Copyright (c) 2019 IntSights Cyber Intelligence Ltd.",
-  "consolidate_widgets" : false,
+  "consolidate_widgets": false,
   "configuration": {
     "account_id": {
       "description": "User's Account ID",
@@ -52,9 +52,9 @@
           "description": "Hash of the binary to hunt",
           "data_type": "string",
           "contains": [
-            "hash", 
-            "sha256", 
-            "sha1", 
+            "hash",
+            "sha256",
+            "sha1",
             "md5"
           ],
           "primary": true,
@@ -73,17 +73,17 @@
           "data_path": "action_result.status",
           "data_type": "string",
           "example_values": [
-              "success",
-              "failed"
+            "success",
+            "failed"
           ]
         },
         {
           "data_path": "action_result.parameter.hash",
           "data_type": "string",
           "contains": [
-            "hash", 
-            "sha256", 
-            "sha1", 
+            "hash",
+            "sha256",
+            "sha1",
             "md5"
           ]
         },
@@ -91,9 +91,9 @@
           "data_path": "action_result.data.*.Value",
           "data_type": "string",
           "contains": [
-            "hash", 
-            "sha256", 
-            "sha1", 
+            "hash",
+            "sha256",
+            "sha1",
             "md5"
           ],
           "column_name": "File",
@@ -137,25 +137,25 @@
           "data_path": "action_result.message",
           "data_type": "string",
           "example_values": [
-              "Num results: 864"
+            "Num results: 864"
           ]
         },
         {
           "data_path": "summary.total_objects",
           "example_values": [
-              1
+            1
           ],
           "data_type": "numeric"
         },
         {
           "data_path": "summary.total_objects_successful",
           "example_values": [
-              1
+            1
           ],
           "data_type": "numeric"
         }
       ]
-    },  
+    },
     {
       "action": "hunt domain",
       "identifier": "hunt_domain",
@@ -186,8 +186,8 @@
           "data_path": "action_result.status",
           "data_type": "string",
           "example_values": [
-              "success",
-              "failed"
+            "success",
+            "failed"
           ]
         },
         {
@@ -244,25 +244,25 @@
           "data_path": "action_result.message",
           "data_type": "string",
           "example_values": [
-              "Num results: 864"
+            "Num results: 864"
           ]
         },
         {
           "data_path": "summary.total_objects",
           "example_values": [
-              1
+            1
           ],
           "data_type": "numeric"
         },
         {
           "data_path": "summary.total_objects_successful",
           "example_values": [
-              1
+            1
           ],
           "data_type": "numeric"
         }
       ]
-    },  
+    },
     {
       "action": "hunt ip",
       "identifier": "hunt_ip",
@@ -293,8 +293,8 @@
           "data_path": "action_result.status",
           "data_type": "string",
           "example_values": [
-              "success",
-              "failed"
+            "success",
+            "failed"
           ]
         },
         {
@@ -351,25 +351,25 @@
           "data_path": "action_result.message",
           "data_type": "string",
           "example_values": [
-              "Num results: 864"
+            "Num results: 864"
           ]
         },
         {
           "data_path": "summary.total_objects",
           "example_values": [
-              1
+            1
           ],
           "data_type": "numeric"
         },
         {
           "data_path": "summary.total_objects_successful",
           "example_values": [
-              1
+            1
           ],
           "data_type": "numeric"
         }
       ]
-    },  
+    },
     {
       "action": "hunt url",
       "identifier": "hunt_url",
@@ -400,8 +400,8 @@
           "data_path": "action_result.status",
           "data_type": "string",
           "example_values": [
-              "success",
-              "failed"
+            "success",
+            "failed"
           ]
         },
         {
@@ -458,20 +458,20 @@
           "data_path": "action_result.message",
           "data_type": "string",
           "example_values": [
-              "Num results: 864"
+            "Num results: 864"
           ]
         },
         {
           "data_path": "summary.total_objects",
           "example_values": [
-              1
+            1
           ],
           "data_type": "numeric"
         },
         {
           "data_path": "summary.total_objects_successful",
           "example_values": [
-              1
+            1
           ],
           "data_type": "numeric"
         }
@@ -581,8 +581,8 @@
           "data_path": "action_result.status",
           "data_type": "string",
           "example_values": [
-              "success",
-              "failed"
+            "success",
+            "failed"
           ]
         },
         {
@@ -617,20 +617,20 @@
           "data_path": "action_result.message",
           "data_type": "string",
           "example_values": [
-              "Num results: 864"
+            "Num results: 864"
           ]
         },
         {
           "data_path": "summary.total_objects",
           "example_values": [
-              1
+            1
           ],
           "data_type": "numeric"
         },
         {
           "data_path": "summary.total_objects_successful",
           "example_values": [
-              1
+            1
           ],
           "data_type": "numeric"
         }
@@ -661,8 +661,8 @@
           "data_path": "action_result.status",
           "data_type": "string",
           "example_values": [
-              "success",
-              "failed"
+            "success",
+            "failed"
           ]
         },
         {
@@ -681,20 +681,20 @@
           "data_path": "action_result.message",
           "data_type": "string",
           "example_values": [
-              "Num results: 864"
+            "Num results: 864"
           ]
         },
         {
           "data_path": "summary.total_objects",
           "example_values": [
-              1
+            1
           ],
           "data_type": "numeric"
         },
         {
           "data_path": "summary.total_objects_successful",
           "example_values": [
-              1
+            1
           ],
           "data_type": "numeric"
         }
