@@ -28,7 +28,7 @@ class IntSightsConnector(BaseConnector):
     ACTION_ID_CLOSE_ALERT = 'close_alert'
     ACTION_ID_TAKEDOWN_REQUEST = 'takedown_request'
 
-    #Messages
+    # Messages
     INTSIGHTS_CONNECTION_SUCCESSFUL = 'Connection successful'
     INTSIGHTS_ERROR_NO_CONTENT = 'No data was returned from IntSights'
     INTSIGHTS_ERROR_CONNECTION = 'Error getting data from IntSights'
@@ -37,7 +37,6 @@ class IntSightsConnector(BaseConnector):
     INTSIGHTS_ERROR_CLOSE_ALERT = 'Failed to close alert ID {alert_id}'
     INTSIGHTS_ERROR_TAKEDOWN_ALERT = 'Failed to takedown alert ID {alert_id}'
     PHANTOM_ERROR_SAVE_CONTAINER = 'An error occured while creating container for IntSights alert ID {alert_id}'
-
 
     def __init__(self):
 
@@ -86,12 +85,12 @@ class IntSightsConnector(BaseConnector):
         try:
             sources_map = self._session.get(self.INTSIGHTS_GET_SOURCES_URL).json()
             self._sources = {
-                value['_id'] : value['Name']
+                value['_id']: value['Name']
                 for category in sources_map.values()
                 for value in category
             }
         except Exception:
-            self.save_progress(self.INTSIGHTS_ERROR_INIT_SOURCES)        
+            self.save_progress(self.INTSIGHTS_ERROR_INIT_SOURCES)
 
     def _search_ioc(self, value, action_result):
 
@@ -183,7 +182,6 @@ class IntSightsConnector(BaseConnector):
 
         return action_result.get_status()
 
-
     def _get_artifact(self, alert):
         cef = {
             'Subtype': alert['Details']['SubType'],
@@ -196,11 +194,11 @@ class IntSightsConnector(BaseConnector):
         tags = [ tag['Name'] for tag in alert['Details']['Tags'] ]
         if tags:
             cef['Tags'] = tags
-        
+
         source_date = alert['Details']['Source'].get('Date', '')
         if source_date:
             cef['Source Date'] = source_date
-        
+
         artifact = {
             'label': 'IntSights Alert',
             'name': alert['Details']['Title'],
@@ -234,12 +232,11 @@ class IntSightsConnector(BaseConnector):
 
         return alert_ids
 
-
     def _on_poll(self, param):
         action_result = ActionResult()
 
         alert_ids = self._get_alert_ids(param, action_result)
-        
+
         try:
             for alert_id in alert_ids:
                 alert = self._session.get(self.INTSIGHTS_GET_COMPLETE_ALERT_URL.format(alert_id=alert_id)).json()
@@ -265,7 +262,6 @@ class IntSightsConnector(BaseConnector):
         self.add_action_result(action_result)
         return action_result.get_status()
 
-
     def _get_closure_json(self, param):
         closure_json = dict()
 
@@ -282,7 +278,7 @@ class IntSightsConnector(BaseConnector):
         alert_rate = param.get('rate')
         if alert_rate:
             closure_json['Rate'] = alert_rate
-        
+
         return closure_json
 
     def _close_alert(self, param):
@@ -315,10 +311,9 @@ class IntSightsConnector(BaseConnector):
             action_result.set_status(phantom.APP_SUCCESS)
         except Exception as e:
             action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_TAKEDOWN_ALERT.format(alert_id=alert_id), e)
-        
+
         self.add_action_result(action_result)
         return action_result.get_status()
-
 
     def handle_action(self, param):
 
