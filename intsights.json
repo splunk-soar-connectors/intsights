@@ -10,7 +10,7 @@
     "product_version_regex": ".*",
     "logo": "logo_intsights.svg",
     "logo_dark": "logo_intsights_dark.svg",
-    "min_phantom_version": "4.10.0.40961",
+    "min_phantom_version": "5.0.0",
     "publisher": "IntSights",
     "package_name": "phantom_intsights",
     "contributors": [
@@ -67,7 +67,8 @@
                         "md5"
                     ],
                     "primary": true,
-                    "required": true
+                    "required": true,
+                    "order": 0
                 }
             },
             "render": {
@@ -201,7 +202,8 @@
                         "domain"
                     ],
                     "primary": true,
-                    "required": true
+                    "required": true,
+                    "order": 0
                 }
             },
             "render": {
@@ -329,7 +331,8 @@
                         "ip"
                     ],
                     "primary": true,
-                    "required": true
+                    "required": true,
+                    "order": 0
                 }
             },
             "render": {
@@ -457,7 +460,8 @@
                         "url"
                     ],
                     "primary": true,
-                    "required": true
+                    "required": true,
+                    "order": 0
                 }
             },
             "render": {
@@ -777,7 +781,8 @@
                     "primary": true,
                     "contains": [
                         "intsights alert id"
-                    ]
+                    ],
+                    "order": 0
                 }
             },
             "render": {

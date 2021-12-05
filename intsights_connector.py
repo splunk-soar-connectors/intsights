@@ -11,16 +11,20 @@
 #
 # Licensed under Apache 2.0 (https://www.apache.org/licenses/LICENSE-2.0.txt)
 
-import requests
+from urllib.parse import unquote
 
 # Phantom imports
 import phantom.app as phantom
+import requests
 from phantom.app import BaseConnector
-from urllib.parse import unquote
 
 
 class IntSightsConnector(BaseConnector):
-    """Represent a connector module that implements the actions that are provided by the app. IntSightsConnector is a class that is derived from the BaseConnector class."""
+    """
+    Represent a connector module that implements the actions that are provided by the app.
+
+    IntSightsConnector is a class that is derived from the BaseConnector class.
+    """
 
     # IntSights endpoints
     INTSIGHTS_BASE_URL = 'https://api.ti.insight.rapid7.com/public/v1'
@@ -126,7 +130,10 @@ class IntSightsConnector(BaseConnector):
             if parameter < 0:
                 return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_NON_NEG_INT_MSG.format(param=key)), None
             if not allow_zero and parameter == 0:
-                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_NON_NEG_NON_ZERO_INT_MSG.format(param=key)), None
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    self.INTSIGHTS_NON_NEG_NON_ZERO_INT_MSG.format(param=key)
+                ), None
 
         return phantom.APP_SUCCESS, parameter
 
@@ -208,7 +215,10 @@ class IntSightsConnector(BaseConnector):
             ioc_data = response.json()
         except Exception as e:
             error_msg = self._get_error_message_from_exception(e)
-            return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERR_UNABLE_TO_PARSE_JSON_RESPONSE.format(error=error_msg)), None
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                self.INTSIGHTS_ERR_UNABLE_TO_PARSE_JSON_RESPONSE.format(error=error_msg)
+            ), None
 
         ioc_data['InvestigationLink'] = self.INTSIGHTS_INVESTIGATION_LINK_URL.format(ioc=value)
 
@@ -334,7 +344,10 @@ class IntSightsConnector(BaseConnector):
                     return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERR_INVALID_RESPONSE), []
             except Exception as e:
                 error_msg = self._get_error_message_from_exception(e)
-                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERR_UNABLE_TO_PARSE_JSON_RESPONSE.format(error=error_msg)), []
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    self.INTSIGHTS_ERR_UNABLE_TO_PARSE_JSON_RESPONSE.format(error=error_msg)
+                ), []
 
         except Exception as e:
             error_msg = self._get_error_message_from_exception(e)
@@ -370,7 +383,10 @@ class IntSightsConnector(BaseConnector):
                 if phantom.is_fail(status):
                     self.save_progress(self.PHANTOM_ERROR_SAVE_CONTAINER.format(alert_id=alert_id))
                     self.debug_print('Failed to save container', dump_object=container)
-                    return action_result.set_status(phantom.APP_ERROR, self.PHANTOM_ERROR_SAVE_CONTAINER.format(alert_id=alert_id))
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        self.PHANTOM_ERROR_SAVE_CONTAINER.format(alert_id=alert_id)
+                    )
 
                 artifact['container_id'] = container_id_
                 status, message, _ = self.save_artifacts([artifact])
@@ -378,7 +394,10 @@ class IntSightsConnector(BaseConnector):
                 if phantom.is_fail(status):
                     self.save_progress(self.PHANTOM_ERROR_SAVE_ARTIFACT.format(alert_id=alert_id))
                     self.debug_print('Failed to save artifact', dump_object=artifact)
-                    return action_result.set_status(phantom.APP_ERROR, self.PHANTOM_ERROR_SAVE_ARTIFACT.format(alert_id=alert_id))
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        self.PHANTOM_ERROR_SAVE_ARTIFACT.format(alert_id=alert_id)
+                    )
 
             return action_result.set_status(phantom.APP_SUCCESS)
         except Exception as e:
@@ -479,7 +498,7 @@ if __name__ == '__main__':
 
     if len(sys.argv) < 2:
         print('No test json specified as input')
-        exit(1)
+        sys.exit(1)
 
     with open(sys.argv[1]) as f:
 
@@ -495,4 +514,4 @@ if __name__ == '__main__':
 
         print(json.dumps(json.loads(ret_val), indent=4))
 
-    exit(0)
+    sys.exit(0)
