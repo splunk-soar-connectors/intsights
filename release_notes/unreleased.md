@@ -1,4 +1,4 @@
 **Unreleased**
-* Updated to python 3 with latest phantom library support
+* Python3 compatibility changes
 * Changed on-poll action start time to ingest last ten days data
-* Phantom app Best Practice changes
+* Updated app json and documentation

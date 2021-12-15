@@ -7,8 +7,3 @@ Library: requests
 Version: 2.25.0
 License: Apache 2.0
 Kenneth Reitz
-
-Library: requests
-Version: 2.26.0
-License: Apache 2.0
-Kenneth Reitz

@@ -1,5 +1,12 @@
 [comment]: # "  Copyright (c) 2019-2021 IntSights Cyber Intelligence Ltd."
 [comment]: # ""
+[comment]: # "  This unpublished material is proprietary to IntSights."
+[comment]: # "  All rights reserved. The methods and"
+[comment]: # "  techniques described herein are considered trade secrets"
+[comment]: # "  and/or confidential. Reproduction or distribution, in whole"
+[comment]: # "  or in part, is forbidden except by express written permission"
+[comment]: # "  of IntSights"
+[comment]: # ""
 [comment]: # "  Licensed under the Apache License, Version 2.0 (the \"License\");"
 [comment]: # "  you may not use this file except in compliance with the License."
 [comment]: # "  You may obtain a copy of the License at"
@@ -13,7 +20,7 @@
 [comment]: # ""
 
 **Port Information**
-*  The app uses HTTP/ HTTPS protocol for communicating with the IntSights server. Below are the default ports used by Splunk SOAR.
+*  The app uses HTTP/ HTTPS protocol for communicating with the IntSights server. Below are the default ports used by the Splunk SOAR Connector.
 
     SERVICE NAME | TRANSPORT PROTOCOL | PORT
     ------------ | ------------------ | ----
