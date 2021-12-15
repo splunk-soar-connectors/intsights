@@ -24,6 +24,30 @@
         "Cloud, IntSights Public API 2.4.0"
     ],
     "consolidate_widgets": false,
+    "pip_dependencies": {
+        "wheel": [
+            {
+                "module": "certifi",
+                "input_file": "wheels/certifi-2021.10.8-py2.py3-none-any.whl"
+            },
+            {
+                "module": "chardet",
+                "input_file": "wheels/chardet-3.0.4-py2.py3-none-any.whl"
+            },
+            {
+                "module": "idna",
+                "input_file": "wheels/idna-2.10-py2.py3-none-any.whl"
+            },
+            {
+                "module": "requests",
+                "input_file": "wheels/requests-2.25.0-py2.py3-none-any.whl"
+            },
+            {
+                "module": "urllib3",
+                "input_file": "wheels/urllib3-1.26.7-py2.py3-none-any.whl"
+            }
+        ]
+    },
     "configuration": {
         "account_id": {
             "description": "User's Account ID",
@@ -708,17 +732,6 @@
                     "data_path": "action_result.parameter.alert_id",
                     "data_type": "string",
                     "example_values": [
-                        "dcbjdsc1234567"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.alert_id",
-                    "data_type": "string",
-                    "example_values": [
                         "assad12sadas"
                     ],
                     "contains": [
@@ -726,7 +739,11 @@
                     ],
                     "column_name": "Alert ID",
                     "column_order": 0
-                },                
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
                 {
                     "data_path": "action_result.message",
                     "data_type": "string",
@@ -796,17 +813,6 @@
                     "data_path": "action_result.parameter.alert_id",
                     "data_type": "string",
                     "example_values": [
-                        "dhcbjdsncds45svgsvhg"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.parameter.alert_id",
-                    "data_type": "string",
-                    "example_values": [
                         "assad12sadas"
                     ],
                     "column_name": "Alert ID",
@@ -814,6 +820,10 @@
                         "intsights alert id"
                     ],
                     "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
