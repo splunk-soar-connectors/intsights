@@ -1,4 +1,4 @@
 **Unreleased**
 * Python3 compatibility changes
-* Changed on-poll action start time to ingest last ten days data
-* Updated app json and documentation
+* Changed the behavior of on-poll action's 'start_time' parameter to ingest last ten days data
+* Fixed miscellaneous JSON and Documentation issues
