@@ -1,6 +1,6 @@
 # File: intsights_connector.py
 #
-# Copyright (c) 2019-2021 IntSights Cyber Intelligence Ltd.
+# Copyright (c) 2019-2022 IntSights Cyber Intelligence Ltd.
 #
 # This unpublished material is proprietary to IntSights.
 # All rights reserved. The methods and
@@ -214,7 +214,7 @@ class IntSightsConnector(BaseConnector):
         try:
             response = self._session.get(self.INTSIGHTS_SEARCH_IOC_URL, params={'iocValue': value})
             if response.status_code == 204:
-                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_NO_CONTENT), None
+                return action_result.set_status(phantom.APP_SUCCESS, self.INTSIGHTS_ERROR_NO_CONTENT), None
             response.raise_for_status()
         except requests.HTTPError as e:
             error_msg = unquote(self._get_error_message_from_exception(e))
@@ -248,7 +248,7 @@ class IntSightsConnector(BaseConnector):
         value = param['hash']
 
         ret_val, results = self._search_ioc(value, action_result)
-        if phantom.is_fail(ret_val):
+        if phantom.is_fail(ret_val) or not results:
             return action_result.get_status()
 
         action_result.add_data(results)
@@ -264,7 +264,7 @@ class IntSightsConnector(BaseConnector):
         value = param['domain']
 
         ret_val, results = self._search_ioc(value, action_result)
-        if phantom.is_fail(ret_val):
+        if phantom.is_fail(ret_val) or not results:
             return action_result.get_status()
 
         action_result.add_data(results)
@@ -280,7 +280,7 @@ class IntSightsConnector(BaseConnector):
         value = param['ip']
 
         ret_val, results = self._search_ioc(value, action_result)
-        if phantom.is_fail(ret_val):
+        if phantom.is_fail(ret_val) or not results:
             return action_result.get_status()
 
         action_result.add_data(results)
@@ -296,7 +296,7 @@ class IntSightsConnector(BaseConnector):
         value = param['url']
 
         ret_val, results = self._search_ioc(value, action_result)
-        if phantom.is_fail(ret_val):
+        if phantom.is_fail(ret_val) or not results:
             return action_result.get_status()
 
         action_result.add_data(results)

@@ -4,7 +4,7 @@
     "description": "This app integrates with IntSights Cyber Intelligence",
     "type": "threat intel",
     "main_module": "intsights_connector.py",
-    "app_version": "3.0.2",
+    "app_version": "3.1.0",
     "product_vendor": "IntSights",
     "product_name": "IntSights Cyber Intelligence",
     "product_version_regex": ".*",
@@ -19,7 +19,7 @@
             "name": "David Hazani"
         }
     ],
-    "license": "Copyright (c) 2019-2021 IntSights Cyber Intelligence Ltd.",
+    "license": "Copyright (c) 2019-2022 IntSights Cyber Intelligence Ltd.",
     "python_version": "3",
     "latest_tested_versions": [
         "Cloud, IntSights Public API 2.4.0"
@@ -865,6 +865,5 @@
                 }
             ]
         }
-    ],
-    "utctime_updated": "2022-01-07T21:13:08.000000Z"
+    ]
 }
