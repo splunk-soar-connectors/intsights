@@ -103,7 +103,7 @@ class IntSightsConnector(BaseConnector):
                 elif len(e.args) == 1:
                     error_code = self.ERR_CODE_MSG
                     error_msg = e.args[0]
-        except:
+        except Exception:
             pass
 
         try:
@@ -111,7 +111,7 @@ class IntSightsConnector(BaseConnector):
                 error_text = "Error Message: {}".format(error_msg)
             else:
                 error_text = "Error Code: {}. Error Message: {}".format(error_code, error_msg)
-        except:
+        except Exception:
             self.debug_print(self.PARSE_ERR_MSG)
             error_text = self.PARSE_ERR_MSG
 
@@ -133,7 +133,7 @@ class IntSightsConnector(BaseConnector):
                     return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_VALID_INT_MSG.format(param=key)), None
 
                 parameter = int(parameter)
-            except:
+            except Exception:
                 return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_VALID_INT_MSG.format(param=key)), None
 
             if parameter < 0:
