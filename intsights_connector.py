@@ -70,9 +70,7 @@ class IntSightsConnector(BaseConnector):
     INTSIGHTS_ERR_INVALID_RESPONSE = "Invalid response received from the server while fetching the list of alert ids"
 
     # Constants relating to 'get_error_message_from_exception'
-    ERR_CODE_MSG = "Error code unavailable"
     ERR_MSG_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters."
-    PARSE_ERR_MSG = "Unable to parse the error message. Please check the asset configuration and|or action parameters."
 
     # Constants relating to 'validate_integer'
     INTSIGHTS_VALID_INT_MSG = "Please provide a valid integer value in the '{param}' parameter"
@@ -92,7 +90,7 @@ class IntSightsConnector(BaseConnector):
         :param e: Exception object
         :return: error message
         """
-        error_code = self.ERR_CODE_MSG
+        error_code = None
         error_msg = self.ERR_MSG_UNAVAILABLE
 
         try:
@@ -101,19 +99,14 @@ class IntSightsConnector(BaseConnector):
                     error_code = e.args[0]
                     error_msg = e.args[1]
                 elif len(e.args) == 1:
-                    error_code = self.ERR_CODE_MSG
                     error_msg = e.args[0]
         except Exception:
             pass
 
-        try:
-            if error_code in self.ERR_CODE_MSG:
-                error_text = "Error Message: {}".format(error_msg)
-            else:
-                error_text = "Error Code: {}. Error Message: {}".format(error_code, error_msg)
-        except Exception:
-            self.debug_print(self.PARSE_ERR_MSG)
-            error_text = self.PARSE_ERR_MSG
+        if not error_code:
+            error_text = "Error Message: {}".format(error_msg)
+        else:
+            error_text = "Error Code: {}. Error Message: {}".format(error_code, error_msg)
 
         return error_text
 
