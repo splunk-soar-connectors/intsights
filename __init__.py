@@ -1,6 +1,6 @@
 # File: __init__.py
 #
-# Copyright (c) 2019-2021 IntSights Cyber Intelligence Ltd.
+# Copyright (c) 2019-2022 IntSights Cyber Intelligence Ltd.
 #
 # This unpublished material is proprietary to IntSights.
 # All rights reserved. The methods and
