@@ -4,7 +4,7 @@
     "description": "This app integrates with IntSights Cyber Intelligence",
     "type": "threat intel",
     "main_module": "intsights_connector.py",
-    "app_version": "3.1.0",
+    "app_version": "3.1.1",
     "product_vendor": "IntSights",
     "product_name": "IntSights Cyber Intelligence",
     "product_version_regex": ".*",
@@ -863,5 +863,5 @@
             ]
         }
     ],
-    "utctime_updated": "2022-01-07T21:13:08.000000Z"
+    "utctime_updated": "2022-01-19T10:05:05.000000Z"
 }
