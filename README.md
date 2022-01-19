@@ -2,7 +2,7 @@
 # IntSights
 
 Publisher: IntSights  
-Connector Version: 3\.1\.0  
+Connector Version: 3\.1\.1  
 Product Vendor: IntSights  
 Product Name: IntSights Cyber Intelligence  
 Product Version Supported (regex): "\.\*"  
@@ -10,7 +10,7 @@ Minimum Product Version: 5\.0\.0
 
 This app integrates with IntSights Cyber Intelligence
 
-[comment]: # " File: readme.md"
+[comment]: # " File: README.md"
 [comment]: # "  Copyright (c) 2019-2022 IntSights Cyber Intelligence Ltd."
 [comment]: # ""
 [comment]: # "  This unpublished material is proprietary to IntSights."
