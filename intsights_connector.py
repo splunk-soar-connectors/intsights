@@ -37,7 +37,8 @@ class IntSightsConnector(BaseConnector):
 
     # IntSights endpoints
     INTSIGHTS_BASE_URL = 'https://api.ti.insight.rapid7.com/public/v1'
-    INTSIGHTS_SEARCH_IOC_URL = INTSIGHTS_BASE_URL + '/iocs/ioc-by-value'
+    INTSIGHTS_BASE_URL_V3 = 'https://api.ti.insight.rapid7.com/public/v3'
+    INTSIGHTS_SEARCH_IOC_URL = INTSIGHTS_BASE_URL_V3 + '/iocs/ioc-by-value'
     INTSIGHTS_GET_API_VERSION_URL = INTSIGHTS_BASE_URL + '/api/version'
     INTSIGHTS_GET_SOURCES_URL = INTSIGHTS_BASE_URL + '/iocs/sources'
     INTSIGHTS_GET_ALERTS_LIST_URL = INTSIGHTS_BASE_URL + '/data/alerts/alerts-list'
