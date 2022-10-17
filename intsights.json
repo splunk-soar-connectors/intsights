@@ -11,13 +11,13 @@
     "fips_compliant": true,
     "logo": "logo_intsights.svg",
     "logo_dark": "logo_intsights_dark.svg",
-    "min_phantom_version": "5.3.0",
+    "min_phantom_version": "5.3.4",
     "publisher": "IntSights",
     "package_name": "phantom_intsights",
     "contributors": [
         {
             "name": "David Hazani",
-	    "name": "Wealot"
+            "name": "Wealot"
         }
     ],
     "license": "Copyright (c) 2019-2022 IntSights Cyber Intelligence Ltd.",
