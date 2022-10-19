@@ -4,19 +4,20 @@
     "description": "This app integrates with IntSights Cyber Intelligence",
     "type": "threat intel",
     "main_module": "intsights_connector.py",
-    "app_version": "3.1.1",
+    "app_version": "4.0.0",
     "product_vendor": "IntSights",
     "product_name": "IntSights Cyber Intelligence",
     "product_version_regex": ".*",
     "fips_compliant": true,
     "logo": "logo_intsights.svg",
     "logo_dark": "logo_intsights_dark.svg",
-    "min_phantom_version": "5.0.0",
+    "min_phantom_version": "5.3.4",
     "publisher": "IntSights",
     "package_name": "phantom_intsights",
     "contributors": [
         {
-            "name": "David Hazani"
+            "name": "David Hazani",
+            "name": "Wealot"
         }
     ],
     "license": "Copyright (c) 2019-2022 IntSights Cyber Intelligence Ltd.",
