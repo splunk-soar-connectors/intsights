@@ -2,11 +2,11 @@
 # IntSights
 
 Publisher: IntSights  
-Connector Version: 3\.1\.1  
+Connector Version: 4\.0\.0  
 Product Vendor: IntSights  
 Product Name: IntSights Cyber Intelligence  
 Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 5\.0\.0  
+Minimum Product Version: 5\.3\.4  
 
 This app integrates with IntSights Cyber Intelligence
 
