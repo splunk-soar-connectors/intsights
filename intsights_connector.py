@@ -37,7 +37,8 @@ class IntSightsConnector(BaseConnector):
 
     # IntSights endpoints
     INTSIGHTS_BASE_URL = 'https://api.ti.insight.rapid7.com/public/v1'
-    INTSIGHTS_SEARCH_IOC_URL = INTSIGHTS_BASE_URL + '/iocs/ioc-by-value'
+    INTSIGHTS_BASE_URL_V3 = 'https://api.ti.insight.rapid7.com/public/v3'
+    INTSIGHTS_SEARCH_IOC_URL = INTSIGHTS_BASE_URL_V3 + '/iocs/ioc-by-value'
     INTSIGHTS_GET_API_VERSION_URL = INTSIGHTS_BASE_URL + '/api/version'
     INTSIGHTS_GET_SOURCES_URL = INTSIGHTS_BASE_URL + '/iocs/sources'
     INTSIGHTS_GET_ALERTS_LIST_URL = INTSIGHTS_BASE_URL + '/data/alerts/alerts-list'
@@ -168,6 +169,7 @@ class IntSightsConnector(BaseConnector):
         return phantom.APP_SUCCESS
 
     def _test_asset_connectivity(self):
+        self.debug_print('Starting connectivity test')
 
         action_result = self.add_action_result(phantom.ActionResult())
 
@@ -181,6 +183,7 @@ class IntSightsConnector(BaseConnector):
             error_msg = self._get_error_message_from_exception(e)
             return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_CONNECTION.format(error=error_msg))
         except Exception as e:
+            self.error_print('Something went wrong')
             return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_CONNECTION.format(error=e))
 
         self.save_progress(self.INTSIGHTS_CONNECTION_SUCCESSFUL)
@@ -433,6 +436,7 @@ class IntSightsConnector(BaseConnector):
         return phantom.APP_SUCCESS, closure_json
 
     def _close_alert(self, param):
+        self.debug_print('Starting close alert')
 
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
         alert_id = param['alert_id']
@@ -447,11 +451,13 @@ class IntSightsConnector(BaseConnector):
             response.raise_for_status()
             return action_result.set_status(phantom.APP_SUCCESS, "Successfully closed the alert")
         except Exception as e:
+            self.error_print('Something went wrong')
             error_msg = unquote(self._get_error_message_from_exception(e))
             msg = "{}. {}".format(self.INTSIGHTS_ERROR_TAKEDOWN_ALERT.format(alert_id=alert_id), error_msg)
             return action_result.set_status(phantom.APP_ERROR, msg)
 
     def _takedown_request(self, param):
+        self.debug_print('Starting takedown request')
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
         alert_id = param['alert_id']
 
@@ -462,6 +468,7 @@ class IntSightsConnector(BaseConnector):
             response.raise_for_status()
             return action_result.set_status(phantom.APP_SUCCESS, "Takedown request successfully executed")
         except Exception as e:
+            self.error_print('Something went wrong')
             error_msg = unquote(self._get_error_message_from_exception(e))
             msg = "{}. {}".format(self.INTSIGHTS_ERROR_TAKEDOWN_ALERT.format(alert_id=alert_id), error_msg)
             return action_result.set_status(phantom.APP_ERROR, msg)
