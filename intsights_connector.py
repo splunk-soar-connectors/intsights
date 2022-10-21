@@ -26,7 +26,6 @@ from urllib.parse import unquote
 import phantom.app as phantom
 import requests
 import time
-import json
 from phantom.app import BaseConnector
 
 
@@ -479,7 +478,7 @@ class IntSightsConnector(BaseConnector):
             error_msg = unquote(self._get_error_message_from_exception(e))
             msg = "{}. {}".format(self.INTSIGHTS_ERROR_TAKEDOWN_ALERT.format(alert_id=alert_id), error_msg)
             return action_result.set_status(phantom.APP_ERROR, msg)
-    
+
     def _enrich_ioc(self, param):
         self.debug_print('Starting IOC enrichment')
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
