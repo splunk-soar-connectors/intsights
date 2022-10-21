@@ -55,7 +55,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [hunt domain](#action-hunt-domain) - Look for information about a domain in the Intsights database  
 [hunt ip](#action-hunt-ip) - Look for information about an IP in the Intsights database  
 [hunt url](#action-hunt-url) - Look for information about a URL in the Intsights database  
-[enrich ioc](#action-enrich-ioc) - Get enrichment data for IOC (paid functionality)
+[enrich ioc](#action-enrich-ioc) - Get enrichment data for IOC (paid functionality)  
 [on poll](#action-on-poll) - Callback action for the on\_poll ingest functionality  
 [close alert](#action-close-alert) - Close an alert in the IntSights dashboard  
 [takedown request](#action-takedown-request) - Initiate a takedown request of an alert from the IntSights dashboard  
