@@ -484,13 +484,13 @@ class IntSightsConnector(BaseConnector):
         self.debug_print('Starting IOC enrichment')
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
 
-        ioc = param('ioc')
-        max_poll_cycles = param('max_poll_cycles')
-        sleep_seconds = param('sleep_seconds')
+        ioc = param['ioc']
+        max_poll_cycles = param['max_poll_cycles']
+        sleep_seconds = param['sleep_seconds']
 
         for x in range(max_poll_cycles):
             try:
-                response = self._session.get(self.INTSIGHTS_ENRICH_IOC_URL, params={'iocValue': ioc})
+                response = self._session.get(f'{self.INTSIGHTS_ENRICH_IOC_URL}/{ioc}')
                 if response.status_code == 204:
                     return action_result.set_status(phantom.APP_SUCCESS, self.INTSIGHTS_ERROR_NO_CONTENT)
                 response.raise_for_status()
