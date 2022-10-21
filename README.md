@@ -2,7 +2,7 @@
 # IntSights
 
 Publisher: IntSights  
-Connector Version: 4\.0\.0  
+Connector Version: 4\.0\.1  
 Product Vendor: IntSights  
 Product Name: IntSights Cyber Intelligence  
 Product Version Supported (regex): "\.\*"  
@@ -55,6 +55,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [hunt domain](#action-hunt-domain) - Look for information about a domain in the Intsights database  
 [hunt ip](#action-hunt-ip) - Look for information about an IP in the Intsights database  
 [hunt url](#action-hunt-url) - Look for information about a URL in the Intsights database  
+[enrich ioc](#action-enrich-ioc) - Get enrichment data for IOC (paid functionality)
 [on poll](#action-on-poll) - Callback action for the on\_poll ingest functionality  
 [close alert](#action-close-alert) - Close an alert in the IntSights dashboard  
 [takedown request](#action-takedown-request) - Initiate a takedown request of an alert from the IntSights dashboard  
@@ -178,6 +179,28 @@ action\_result\.message | string |
 action\_result\.summary | string | 
 summary\.total\_objects | numeric | 
 summary\.total\_objects\_successful | numeric |   
+
+## action: 'enrich ioc'
+Get enrichment data for IOC (paid functionality)
+
+Type: **investigate**  
+Read only: **True**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**ioc** |  required  | ioc to enrich | string |  `hash`  `sha256`  `sha1`  `md5` `ip` `domain`  `url` 
+**max_poll_cycles** | required | maximum poll cycles | numeric |
+**sleep_seconds** | required | amount of seconds to sleep between polling cycles | numeric |
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS
+--------- | ---- | --------
+action\_result\.parameter\.ioc | string |  
+action\_result\.data | string |  
+action\_result\.status | string | 
+action\_result\.message | string | 
+action\_result\.summary | string | 
 
 ## action: 'on poll'
 Callback action for the on\_poll ingest functionality
