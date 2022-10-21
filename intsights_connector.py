@@ -504,7 +504,7 @@ class IntSightsConnector(BaseConnector):
                 error_msg = self._get_error_message_from_exception(e)
                 return action_result.set_status(
                     phantom.APP_ERROR,
-                    self.INTSIGHTS_ERR_UNABLE_TO_PARSE_JSON_RESPONSE.format(error=error_msg)
+                    f'{self.INTSIGHTS_ERR_UNABLE_TO_PARSE_JSON_RESPONSE.format(error=error_msg)} response was: {response.text}'
                 )
 
             ioc_data['InvestigationLink'] = self.INTSIGHTS_INVESTIGATION_LINK_URL.format(ioc=ioc)
@@ -524,9 +524,10 @@ class IntSightsConnector(BaseConnector):
             else:
                 time.sleep(sleep_seconds)
 
-        self.error_print('Timeout occured on the enrichment API calls')
-        msg = f'{self.INTSIGHTS_ERROR_ENRICHMENT_TIMEOUT} {json.dumps(response)}'
-        return action_result.set_status(phantom.APP_ERROR, msg)
+        self.debug_print('Timeout occured on the enrichment API calls, see data for link to ongoing investigation enrichment')
+        action_result.add_data(ioc_data)
+        msg = 'Timeout occured on the enrichment API calls, see data for link to ongoing investigation enrichment'
+        return action_result.set_status(phantom.APP_SUCCESS, msg)
 
     def handle_action(self, param):
         """Get current action identifier and call member function of its own to handle the action."""

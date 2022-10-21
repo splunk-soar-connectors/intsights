@@ -181,7 +181,7 @@ summary\.total\_objects | numeric |
 summary\.total\_objects\_successful | numeric |   
 
 ## action: 'enrich ioc'
-Get enrichment data for IOC (paid functionality)
+Get enrichment data for IOC (paid functionality) NOTICE: Always check for Status Done in the results in data because a timeout will result in a successful run with the investigation URL for people to go to and possibly run their playbook at a later stage manually to add the information as needed. Some investigations can take a lot of time and you do not want to have SOAR stuck for that long.
 
 Type: **investigate**  
 Read only: **True**
