@@ -20,12 +20,12 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
+import time
 from urllib.parse import unquote
 
 # Phantom imports
 import phantom.app as phantom
 import requests
-import time
 from phantom.app import BaseConnector
 
 
