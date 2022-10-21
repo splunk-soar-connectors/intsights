@@ -101,14 +101,14 @@
                     "data_type": "numeric",
                     "required": true,
                     "default": 15,
-                    "order": 0
+                    "order": 1 
                 },
                 "sleep_seconds": {
                     "description": "The amount of seconds to sleep before trying to poll the endpoint again for results",
                     "data_type": "numeric",
                     "required": true,
                     "default": 2,
-                    "order": 0
+                    "order": 2
                 }
             },
             "render": {
@@ -147,6 +147,14 @@
                 {
                     "data_path": "action_result.data",
                     "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
                 }
             ]
         },
