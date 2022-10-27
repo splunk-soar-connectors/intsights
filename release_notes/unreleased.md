@@ -1,2 +1,2 @@
 **Unreleased**
-* Added the enrich functionality as an action so that people can use enrich API endpoint, which is a paid functionality of the platform
+* Added new action 'enrich IOC' to get enrichment information on IOC using the (paid) enrich API endpoint
