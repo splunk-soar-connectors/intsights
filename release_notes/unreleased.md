@@ -1,1 +1,2 @@
 **Unreleased**
+* Added the enrich functionality as an action so that people can use enrich API endpoint, which is a paid functionality of the platform
