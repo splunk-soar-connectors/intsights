@@ -2,7 +2,7 @@
 # IntSights
 
 Publisher: IntSights  
-Connector Version: 4\.0\.0  
+Connector Version: 4\.1\.0  
 Product Vendor: IntSights  
 Product Name: IntSights Cyber Intelligence  
 Product Version Supported (regex): "\.\*"  
@@ -51,6 +51,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions  
 [test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity  
+[enrich ioc](#action-enrich-ioc) - Get enrichment information on IOC using the \(paid\) enrich API endpoint  
 [hunt file](#action-hunt-file) - Look for information about a file hash in the Intsights database  
 [hunt domain](#action-hunt-domain) - Look for information about a domain in the Intsights database  
 [hunt ip](#action-hunt-ip) - Look for information about an IP in the Intsights database  
@@ -70,6 +71,30 @@ No parameters are required for this action
 
 #### Action Output
 No Output  
+
+## action: 'enrich ioc'
+Get enrichment information on IOC using the \(paid\) enrich API endpoint
+
+Type: **investigate**  
+Read only: **True**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**ioc** |  required  | The IOC to enrich | string |  `hash`  `sha256`  `sha1`  `md5`  `domain`  `ip`  `url` 
+**max\_poll\_cycles** |  required  | The maximum amount of poll cycles to wait before erroring out | numeric | 
+**sleep\_seconds** |  required  | The amount of seconds to sleep before trying to poll the endpoint again for results | numeric | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS
+--------- | ---- | --------
+action\_result\.parameter\.ioc | string |  `hash`  `sha256`  `sha1`  `md5`  `domain`  `ip`  `url` 
+action\_result\.message | string | 
+action\_result\.summary | string | 
+action\_result\.status | string | 
+action\_result\.data | string | 
+summary\.total\_objects | numeric | 
+summary\.total\_objects\_successful | numeric |   
 
 ## action: 'hunt file'
 Look for information about a file hash in the Intsights database

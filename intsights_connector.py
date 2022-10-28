@@ -20,6 +20,7 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
+import time
 from urllib.parse import unquote
 
 # Phantom imports
@@ -46,6 +47,7 @@ class IntSightsConnector(BaseConnector):
     INTSIGHTS_CLOSE_ALERT_URL = INTSIGHTS_BASE_URL + '/data/alerts/close-alert/{alert_id}'
     INTSIGHTS_ALERT_TAKEDOWN_URL = INTSIGHTS_BASE_URL + '/data/alerts/takedown-request/{alert_id}'
     INTSIGHTS_INVESTIGATION_LINK_URL = 'https://dashboard.ti.insight.rapid7.com/#/tip/investigation/?q={ioc}'
+    INTSIGHTS_ENRICH_IOC_URL = INTSIGHTS_BASE_URL + '/iocs/enrich'
 
     # Supported actions
     ACTION_ID_TEST_ASSET_CONNECTIVITY = 'test_asset_connectivity'
@@ -56,6 +58,7 @@ class IntSightsConnector(BaseConnector):
     ACTION_ID_ON_POLL = 'on_poll'
     ACTION_ID_CLOSE_ALERT = 'close_alert'
     ACTION_ID_TAKEDOWN_REQUEST = 'takedown_request'
+    ACTION_ID_ENRICH_IOC = 'enrich_ioc'
 
     # Messages
     INTSIGHTS_CONNECTION_SUCCESSFUL = 'Test Connectivity passed'
@@ -65,10 +68,13 @@ class IntSightsConnector(BaseConnector):
     INTSIGHTS_ERROR_INIT_SOURCES = 'Failed to initiate sources map. {error}'
     INTSIGHTS_ERROR_CLOSE_ALERT = 'Failed to close alert ID {alert_id}'
     INTSIGHTS_ERROR_TAKEDOWN_ALERT = 'Failed to takedown alert ID {alert_id}'
+    INTSIGHTS_ERROR_ENRICHMENT_TIMEOUT = 'Enrichment calls timed out with the following last response: '
     PHANTOM_ERROR_SAVE_CONTAINER = 'An error occurred while creating container for IntSights alert ID {alert_id}'
     PHANTOM_ERROR_SAVE_ARTIFACT = 'An error occurred while creating artifact for IntSights alert ID {alert_id}'
     INTSIGHTS_ERR_UNABLE_TO_PARSE_JSON_RESPONSE = "Unable to parse response as JSON. {error}"
-    INTSIGHTS_ERR_INVALID_RESPONSE = "Invalid response received from the server while fetching the list of alert ids"
+    INTSIGHTS_ERR_INVALID_RESPONSE = 'Invalid response received from the server while fetching the list of alert ids'
+    INTSIGHTS_ERR_QUOTA_EXCEEDED = 'Enrichment API responded with a Quota exceeded message'
+    INTSIGHTS_ERR_ENRICHMENT_FAILED = 'Enrichment API reponded with a "failed" message with reason: {reason}'
 
     # Constants relating to 'get_error_message_from_exception'
     ERR_MSG_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters."
@@ -473,6 +479,55 @@ class IntSightsConnector(BaseConnector):
             msg = "{}. {}".format(self.INTSIGHTS_ERROR_TAKEDOWN_ALERT.format(alert_id=alert_id), error_msg)
             return action_result.set_status(phantom.APP_ERROR, msg)
 
+    def _enrich_ioc(self, param):
+        self.debug_print('Starting IOC enrichment')
+        action_result = self.add_action_result(phantom.ActionResult(dict(param)))
+
+        ioc = param['ioc']
+        max_poll_cycles = param['max_poll_cycles']
+        sleep_seconds = param['sleep_seconds']
+
+        for x in range(max_poll_cycles):
+            try:
+                response = self._session.get(f'{self.INTSIGHTS_ENRICH_IOC_URL}/{ioc}')
+                if response.status_code == 204:
+                    return action_result.set_status(phantom.APP_SUCCESS, self.INTSIGHTS_ERROR_NO_CONTENT)
+                response.raise_for_status()
+            except requests.HTTPError as e:
+                error_msg = unquote(self._get_error_message_from_exception(e))
+                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_CONNECTION.format(error=error_msg))
+
+            try:
+                ioc_data = response.json()
+            except Exception as e:
+                error_msg = self._get_error_message_from_exception(e)
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    f'{self.INTSIGHTS_ERR_UNABLE_TO_PARSE_JSON_RESPONSE.format(error=error_msg)} response was: {response.text}'
+                )
+
+            ioc_data['InvestigationLink'] = self.INTSIGHTS_INVESTIGATION_LINK_URL.format(ioc=ioc)
+
+            status = ioc_data['Status']
+
+            if status == 'QuotaExceeded':
+                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERR_QUOTA_EXCEEDED)
+
+            elif status == 'Failed':
+                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERR_ENRICHMENT_FAILED.format(reason=ioc_data['FailedReason']))
+
+            elif status == 'Done':
+                action_result.add_data(ioc_data)
+                return action_result.set_status(phantom.APP_SUCCESS, 'Enrichment completed')
+
+            else:
+                time.sleep(sleep_seconds)
+
+        self.debug_print('Timeout occured on the enrichment API calls, see data for link to ongoing investigation enrichment')
+        action_result.add_data(ioc_data)
+        msg = 'Timeout occured on the enrichment API calls, see data for link to ongoing investigation enrichment'
+        return action_result.set_status(phantom.APP_SUCCESS, msg)
+
     def handle_action(self, param):
         """Get current action identifier and call member function of its own to handle the action."""
         ret_val = phantom.APP_ERROR
@@ -495,6 +550,8 @@ class IntSightsConnector(BaseConnector):
             ret_val = self._close_alert(param)
         elif action_id == self.ACTION_ID_TAKEDOWN_REQUEST:
             ret_val = self._takedown_request(param)
+        elif action_id == self.ACTION_ID_ENRICH_IOC:
+            ret_val = self._enrich_ioc(param)
         else:
             raise ValueError('Action {} is not supported'.format(action_id))
 
