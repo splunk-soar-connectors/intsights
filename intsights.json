@@ -4,7 +4,7 @@
     "description": "This app integrates with IntSights Cyber Intelligence",
     "type": "threat intel",
     "main_module": "intsights_connector.py",
-    "app_version": "4.0.0",
+    "app_version": "4.1.0",
     "product_vendor": "IntSights",
     "product_name": "IntSights Cyber Intelligence",
     "product_version_regex": ".*",
@@ -27,23 +27,23 @@
         "wheel": [
             {
                 "module": "certifi",
-                "input_file": "wheels/certifi-2021.10.8-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/certifi-2022.9.24-py3-none-any.whl"
             },
             {
                 "module": "chardet",
-                "input_file": "wheels/chardet-3.0.4-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/chardet-3.0.4-py2.py3-none-any.whl"
             },
             {
                 "module": "idna",
-                "input_file": "wheels/idna-2.10-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/idna-2.10-py2.py3-none-any.whl"
             },
             {
                 "module": "requests",
-                "input_file": "wheels/requests-2.25.0-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/requests-2.25.0-py2.py3-none-any.whl"
             },
             {
                 "module": "urllib3",
-                "input_file": "wheels/urllib3-1.26.8-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/urllib3-1.26.12-py2.py3-none-any.whl"
             }
         ]
     },
@@ -71,6 +71,96 @@
             "versions": "EQ(*)",
             "parameters": {},
             "output": []
+        },
+        {
+            "action": "enrich ioc",
+            "identifier": "enrich_ioc",
+            "description": "Get enrichment information on IOC using the (paid) enrich API endpoint",
+            "type": "investigate",
+            "read_only": true,
+            "versions": "EQ(*)",
+            "parameters": {
+                "ioc": {
+                    "description": "The IOC to enrich",
+                    "data_type": "string",
+                    "contains": [
+                        "hash",
+                        "sha256",
+                        "sha1",
+                        "md5",
+                        "domain",
+                        "ip",
+                        "url"
+                    ],
+                    "primary": true,
+                    "required": true,
+                    "order": 0
+                },
+                "max_poll_cycles": {
+                    "description": "The maximum amount of poll cycles to wait before erroring out",
+                    "data_type": "numeric",
+                    "required": true,
+                    "default": 15,
+                    "order": 1
+                },
+                "sleep_seconds": {
+                    "description": "The amount of seconds to sleep before trying to poll the endpoint again for results",
+                    "data_type": "numeric",
+                    "required": true,
+                    "default": 2,
+                    "order": 2
+                }
+            },
+            "render": {
+                "width": 3,
+                "title": "Enrich IOC",
+                "menu_name": "Intsights",
+                "type": "table",
+                "height": 5
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.ioc",
+                    "data_type": "string",
+                    "contains": [
+                        "hash",
+                        "sha256",
+                        "sha1",
+                        "md5",
+                        "domain",
+                        "ip",
+                        "url"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ]
         },
         {
             "action": "hunt file",

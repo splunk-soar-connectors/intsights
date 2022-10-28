@@ -1,1 +1,2 @@
 **Unreleased**
+* Added new action 'enrich IOC' to get enrichment information on IOC using the (paid) enrich API endpoint
