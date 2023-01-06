@@ -51,7 +51,8 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions  
 [test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity  
-[enrich ioc](#action-enrich-ioc) - Get enrichment information on IOC using the \(paid\) enrich API endpoint  
+[enrich ioc](#action-enrich-ioc) - Get enrichment information on IOC using the \(paid\) enrich API endpoint 
+[hunt ioc](#action-hunt-ioc) -  Look for information about an ioc in the Intsights database  
 [hunt file](#action-hunt-file) - Look for information about a file hash in the Intsights database  
 [hunt domain](#action-hunt-domain) - Look for information about a domain in the Intsights database  
 [hunt ip](#action-hunt-ip) - Look for information about an IP in the Intsights database  

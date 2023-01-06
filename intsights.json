@@ -4,7 +4,7 @@
     "description": "This app integrates with IntSights Cyber Intelligence",
     "type": "threat intel",
     "main_module": "intsights_connector.py",
-    "app_version": "4.1.0",
+    "app_version": "4.2.0",
     "product_vendor": "IntSights",
     "product_name": "IntSights Cyber Intelligence",
     "product_version_regex": ".*",
@@ -16,8 +16,13 @@
     "package_name": "phantom_intsights",
     "contributors": [
         {
-            "name": "David Hazani",
+            "name": "David Hazani"
+        },
+        {
             "name": "Wealot"
+        },
+        {
+            "name": "Merak93"
         }
     ],
     "license": "Copyright (c) 2019-2022 IntSights Cyber Intelligence Ltd.",
@@ -73,6 +78,65 @@
             "output": []
         },
         {
+            "action": "hunt ioc",
+            "identifier": "hunt_ioc",
+            "description": "Look for information about an ioc in the Intsights database",
+            "type": "string",
+            "read_only": true,
+            "versions": "EQ(*)",
+            "parameters":{
+                "hunting":{
+                    "description":"Look for information about an ioc in the Intsights database",
+                    "data_type": "string",
+                    "primary": true,
+                    "required": true,
+                    "order": 0
+                }
+            },
+            "render":{
+                    "width": 3,
+                    "title": "Hunt IOC",
+                    "menu_name": "Intsights",
+                    "type": "table",
+                    "height": 5
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.hunting",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric"
+                }
+            ]
+
+        },
+        {
             "action": "enrich ioc",
             "identifier": "enrich_ioc",
             "description": "Get enrichment information on IOC using the (paid) enrich API endpoint",
@@ -83,15 +147,6 @@
                 "ioc": {
                     "description": "The IOC to enrich",
                     "data_type": "string",
-                    "contains": [
-                        "hash",
-                        "sha256",
-                        "sha1",
-                        "md5",
-                        "domain",
-                        "ip",
-                        "url"
-                    ],
                     "primary": true,
                     "required": true,
                     "order": 0
@@ -121,16 +176,7 @@
             "output": [
                 {
                     "data_path": "action_result.parameter.ioc",
-                    "data_type": "string",
-                    "contains": [
-                        "hash",
-                        "sha256",
-                        "sha1",
-                        "md5",
-                        "domain",
-                        "ip",
-                        "url"
-                    ]
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",

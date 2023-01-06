@@ -59,6 +59,7 @@ class IntSightsConnector(BaseConnector):
     ACTION_ID_CLOSE_ALERT = 'close_alert'
     ACTION_ID_TAKEDOWN_REQUEST = 'takedown_request'
     ACTION_ID_ENRICH_IOC = 'enrich_ioc'
+    ACTION_ID_HUNT_IOC = 'hunt_ioc'
 
     # Messages
     INTSIGHTS_CONNECTION_SUCCESSFUL = 'Test Connectivity passed'
@@ -271,6 +272,23 @@ class IntSightsConnector(BaseConnector):
 
         action_result.add_data(results)
         return action_result.set_status(phantom.APP_SUCCESS, 'Domain information retrieved')
+
+    def _hunt_ioc(self, param):
+        
+        action_result = self.add_action_result(phantom.ActionResult(dict(param)))
+        ret_val = self._init_sources(action_result)
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
+
+        value = param['hunting']
+
+        ret_val, results = self._search_ioc(value, action_result)
+        if phantom.is_fail(ret_val) or not results:
+            return action_result.get_status()
+
+        action_result.add_data(results)
+        return action_result.set_status(phantom.APP_SUCCESS, 'IOC information retrieved')
+        
 
     def _hunt_ip(self, param):
 
@@ -552,6 +570,8 @@ class IntSightsConnector(BaseConnector):
             ret_val = self._takedown_request(param)
         elif action_id == self.ACTION_ID_ENRICH_IOC:
             ret_val = self._enrich_ioc(param)
+        elif action_id == self.ACTION_ID_HUNT_IOC:
+            ret_val = self._hunt_ioc(param)
         else:
             raise ValueError('Action {} is not supported'.format(action_id))
 
