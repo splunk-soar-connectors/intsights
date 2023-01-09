@@ -274,7 +274,7 @@ class IntSightsConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, 'Domain information retrieved')
 
     def _hunt_ioc(self, param):
-        
+
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
         ret_val = self._init_sources(action_result)
         if phantom.is_fail(ret_val):
@@ -288,7 +288,6 @@ class IntSightsConnector(BaseConnector):
 
         action_result.add_data(results)
         return action_result.set_status(phantom.APP_SUCCESS, 'IOC information retrieved')
-        
 
     def _hunt_ip(self, param):
 

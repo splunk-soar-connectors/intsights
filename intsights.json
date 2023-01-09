@@ -81,7 +81,7 @@
             "action": "hunt ioc",
             "identifier": "hunt_ioc",
             "description": "Look for information about an ioc in the Intsights database",
-            "type": "string",
+            "type": "investigate",
             "read_only": true,
             "versions": "EQ(*)",
             "parameters":{
