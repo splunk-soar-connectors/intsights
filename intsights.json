@@ -11,7 +11,7 @@
     "fips_compliant": true,
     "logo": "logo_intsights.svg",
     "logo_dark": "logo_intsights_dark.svg",
-    "min_phantom_version": "5.3.4",
+    "min_phantom_version": "5.4.0",
     "publisher": "IntSights",
     "package_name": "phantom_intsights",
     "contributors": [
@@ -32,7 +32,7 @@
         "wheel": [
             {
                 "module": "certifi",
-                "input_file": "wheels/py3/certifi-2022.9.24-py3-none-any.whl"
+                "input_file": "wheels/py3/certifi-2022.12.7-py3-none-any.whl"
             },
             {
                 "module": "chardet",
@@ -48,7 +48,7 @@
             },
             {
                 "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.12-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/urllib3-1.26.13-py2.py3-none-any.whl"
             }
         ]
     },
@@ -84,21 +84,21 @@
             "type": "investigate",
             "read_only": true,
             "versions": "EQ(*)",
-            "parameters":{
-                "hunting":{
-                    "description":"Look for information about an ioc in the Intsights database",
+            "parameters": {
+                "hunting": {
+                    "description": "Look for information about an ioc in the Intsights database",
                     "data_type": "string",
                     "primary": true,
                     "required": true,
                     "order": 0
                 }
             },
-            "render":{
-                    "width": 3,
-                    "title": "Hunt IOC",
-                    "menu_name": "Intsights",
-                    "type": "table",
-                    "height": 5
+            "render": {
+                "width": 3,
+                "title": "Hunt IOC",
+                "menu_name": "Intsights",
+                "type": "table",
+                "height": 5
             },
             "output": [
                 {
@@ -134,7 +134,6 @@
                     "data_type": "numeric"
                 }
             ]
-
         },
         {
             "action": "enrich ioc",
