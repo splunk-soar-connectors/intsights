@@ -72,13 +72,13 @@ class IntSightsConnector(BaseConnector):
     INTSIGHTS_ERROR_ENRICHMENT_TIMEOUT = 'Enrichment calls timed out with the following last response: '
     PHANTOM_ERROR_SAVE_CONTAINER = 'An error occurred while creating container for IntSights alert ID {alert_id}'
     PHANTOM_ERROR_SAVE_ARTIFACT = 'An error occurred while creating artifact for IntSights alert ID {alert_id}'
-    INTSIGHTS_ERR_UNABLE_TO_PARSE_JSON_RESPONSE = "Unable to parse response as JSON. {error}"
-    INTSIGHTS_ERR_INVALID_RESPONSE = 'Invalid response received from the server while fetching the list of alert ids'
-    INTSIGHTS_ERR_QUOTA_EXCEEDED = 'Enrichment API responded with a Quota exceeded message'
-    INTSIGHTS_ERR_ENRICHMENT_FAILED = 'Enrichment API reponded with a "failed" message with reason: {reason}'
+    INTSIGHTS_ERROR_UNABLE_TO_PARSE_JSON_RESPONSE = "Unable to parse response as JSON. {error}"
+    INTSIGHTS_ERROR_INVALID_RESPONSE = 'Invalid response received from the server while fetching the list of alert ids'
+    INTSIGHTS_ERROR_QUOTA_EXCEEDED = 'Enrichment API responded with a Quota exceeded message'
+    INTSIGHTS_ERROR_ENRICHMENT_FAILED = 'Enrichment API reponded with a "failed" message with reason: {reason}'
 
     # Constants relating to 'get_error_message_from_exception'
-    ERR_MSG_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters."
+    ERROR_MESSAGE_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters."
 
     # Constants relating to 'validate_integer'
     INTSIGHTS_VALID_INT_MSG = "Please provide a valid integer value in the '{param}' parameter"
@@ -99,22 +99,22 @@ class IntSightsConnector(BaseConnector):
         :return: error message
         """
         error_code = None
-        error_msg = self.ERR_MSG_UNAVAILABLE
+        error_message = self.ERROR_MESSAGE_UNAVAILABLE
 
         try:
             if hasattr(e, "args"):
                 if len(e.args) > 1:
                     error_code = e.args[0]
-                    error_msg = e.args[1]
+                    error_message = e.args[1]
                 elif len(e.args) == 1:
-                    error_msg = e.args[0]
+                    error_message = e.args[0]
         except Exception:
             pass
 
         if not error_code:
-            error_text = "Error Message: {}".format(error_msg)
+            error_text = "Error Message: {}".format(error_message)
         else:
-            error_text = "Error Code: {}. Error Message: {}".format(error_code, error_msg)
+            error_text = "Error Code: {}. Error Message: {}".format(error_code, error_message)
 
         return error_text
 
@@ -187,8 +187,8 @@ class IntSightsConnector(BaseConnector):
 
             response.raise_for_status()
         except requests.HTTPError as e:
-            error_msg = self._get_error_message_from_exception(e)
-            return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_CONNECTION.format(error=error_msg))
+            error_message = self._get_error_message_from_exception(e)
+            return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_CONNECTION.format(error=error_message))
         except Exception as e:
             self.error_print('Something went wrong')
             return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_CONNECTION.format(error=e))
@@ -206,9 +206,9 @@ class IntSightsConnector(BaseConnector):
             }
             return phantom.APP_SUCCESS
         except Exception as e:
-            error_msg = self._get_error_message_from_exception(e)
-            self.save_progress(self.INTSIGHTS_ERROR_INIT_SOURCES.format(error=error_msg))
-            return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_INIT_SOURCES.format(error=error_msg))
+            error_message = self._get_error_message_from_exception(e)
+            self.save_progress(self.INTSIGHTS_ERROR_INIT_SOURCES.format(error=error_message))
+            return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_INIT_SOURCES.format(error=error_message))
 
     def _search_ioc(self, value, action_result):
 
@@ -220,16 +220,16 @@ class IntSightsConnector(BaseConnector):
                 return action_result.set_status(phantom.APP_SUCCESS, self.INTSIGHTS_ERROR_NO_CONTENT), None
             response.raise_for_status()
         except requests.HTTPError as e:
-            error_msg = unquote(self._get_error_message_from_exception(e))
-            return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_CONNECTION.format(error=error_msg)), None
+            error_message = unquote(self._get_error_message_from_exception(e))
+            return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_CONNECTION.format(error=error_message)), None
 
         try:
             ioc_data = response.json()
         except Exception as e:
-            error_msg = self._get_error_message_from_exception(e)
+            error_message = self._get_error_message_from_exception(e)
             return action_result.set_status(
                 phantom.APP_ERROR,
-                self.INTSIGHTS_ERR_UNABLE_TO_PARSE_JSON_RESPONSE.format(error=error_msg)
+                self.INTSIGHTS_ERROR_UNABLE_TO_PARSE_JSON_RESPONSE.format(error=error_message)
             ), None
 
         ioc_data['InvestigationLink'] = self.INTSIGHTS_INVESTIGATION_LINK_URL.format(ioc=value)
@@ -368,18 +368,18 @@ class IntSightsConnector(BaseConnector):
             try:
                 alert_ids = response.json()
                 if not isinstance(alert_ids, list):
-                    self.debug_print("{}. Alert IDs: {}".format(self.INTSIGHTS_ERR_INVALID_RESPONSE, alert_ids))
-                    return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERR_INVALID_RESPONSE), []
+                    self.debug_print("{}. Alert IDs: {}".format(self.INTSIGHTS_ERROR_INVALID_RESPONSE, alert_ids))
+                    return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_INVALID_RESPONSE), []
             except Exception as e:
-                error_msg = self._get_error_message_from_exception(e)
+                error_message = self._get_error_message_from_exception(e)
                 return action_result.set_status(
                     phantom.APP_ERROR,
-                    self.INTSIGHTS_ERR_UNABLE_TO_PARSE_JSON_RESPONSE.format(error=error_msg)
+                    self.INTSIGHTS_ERROR_UNABLE_TO_PARSE_JSON_RESPONSE.format(error=error_message)
                 ), []
 
         except Exception as e:
-            error_msg = self._get_error_message_from_exception(e)
-            return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_CONNECTION.format(error=error_msg)), []
+            error_message = self._get_error_message_from_exception(e)
+            return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_CONNECTION.format(error=error_message)), []
 
         return phantom.APP_SUCCESS, alert_ids
 
@@ -429,8 +429,8 @@ class IntSightsConnector(BaseConnector):
 
             return action_result.set_status(phantom.APP_SUCCESS)
         except Exception as e:
-            error_msg = self._get_error_message_from_exception(e)
-            return action_result.set_status(phantom.APP_ERROR, 'Failed to get data {}'.format(error_msg))
+            error_message = self._get_error_message_from_exception(e)
+            return action_result.set_status(phantom.APP_ERROR, 'Failed to get data {}'.format(error_message))
 
     def _get_closure_json(self, param, action_result):
         closure_json = dict()
@@ -475,9 +475,9 @@ class IntSightsConnector(BaseConnector):
             return action_result.set_status(phantom.APP_SUCCESS, "Successfully closed the alert")
         except Exception as e:
             self.error_print('Something went wrong')
-            error_msg = unquote(self._get_error_message_from_exception(e))
-            msg = "{}. {}".format(self.INTSIGHTS_ERROR_TAKEDOWN_ALERT.format(alert_id=alert_id), error_msg)
-            return action_result.set_status(phantom.APP_ERROR, msg)
+            error_message = unquote(self._get_error_message_from_exception(e))
+            message = "{}. {}".format(self.INTSIGHTS_ERROR_TAKEDOWN_ALERT.format(alert_id=alert_id), error_message)
+            return action_result.set_status(phantom.APP_ERROR, message)
 
     def _takedown_request(self, param):
         self.debug_print('Starting takedown request')
@@ -492,9 +492,9 @@ class IntSightsConnector(BaseConnector):
             return action_result.set_status(phantom.APP_SUCCESS, "Takedown request successfully executed")
         except Exception as e:
             self.error_print('Something went wrong')
-            error_msg = unquote(self._get_error_message_from_exception(e))
-            msg = "{}. {}".format(self.INTSIGHTS_ERROR_TAKEDOWN_ALERT.format(alert_id=alert_id), error_msg)
-            return action_result.set_status(phantom.APP_ERROR, msg)
+            error_message = unquote(self._get_error_message_from_exception(e))
+            message = "{}. {}".format(self.INTSIGHTS_ERROR_TAKEDOWN_ALERT.format(alert_id=alert_id), error_message)
+            return action_result.set_status(phantom.APP_ERROR, message)
 
     def _enrich_ioc(self, param):
         self.debug_print('Starting IOC enrichment')
@@ -511,16 +511,16 @@ class IntSightsConnector(BaseConnector):
                     return action_result.set_status(phantom.APP_SUCCESS, self.INTSIGHTS_ERROR_NO_CONTENT)
                 response.raise_for_status()
             except requests.HTTPError as e:
-                error_msg = unquote(self._get_error_message_from_exception(e))
-                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_CONNECTION.format(error=error_msg))
+                error_message = unquote(self._get_error_message_from_exception(e))
+                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_CONNECTION.format(error=error_message))
 
             try:
                 ioc_data = response.json()
             except Exception as e:
-                error_msg = self._get_error_message_from_exception(e)
+                error_message = self._get_error_message_from_exception(e)
                 return action_result.set_status(
                     phantom.APP_ERROR,
-                    f'{self.INTSIGHTS_ERR_UNABLE_TO_PARSE_JSON_RESPONSE.format(error=error_msg)} response was: {response.text}'
+                    f'{self.INTSIGHTS_ERROR_UNABLE_TO_PARSE_JSON_RESPONSE.format(error=error_message)} response was: {response.text}'
                 )
 
             ioc_data['InvestigationLink'] = self.INTSIGHTS_INVESTIGATION_LINK_URL.format(ioc=ioc)
@@ -528,10 +528,10 @@ class IntSightsConnector(BaseConnector):
             status = ioc_data['Status']
 
             if status == 'QuotaExceeded':
-                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERR_QUOTA_EXCEEDED)
+                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_QUOTA_EXCEEDED)
 
             elif status == 'Failed':
-                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERR_ENRICHMENT_FAILED.format(reason=ioc_data['FailedReason']))
+                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_ENRICHMENT_FAILED.format(reason=ioc_data['FailedReason']))
 
             elif status == 'Done':
                 action_result.add_data(ioc_data)
