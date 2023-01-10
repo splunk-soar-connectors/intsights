@@ -50,7 +50,7 @@ class IntSightsConnector(BaseConnector):
     INTSIGHTS_ENRICH_IOC_URL = INTSIGHTS_BASE_URL + '/iocs/enrich'
 
     # Supported actions
-    ACTION_ID_TEST_ASSET_CONNECTIVITY = 'test_asset_connectivity'
+    ACTION_ID_TEST_ASSET_CONNECTION = 'test_asset_connectivity'
     ACTION_ID_HUNT_FILE = 'hunt_file'
     ACTION_ID_HUNT_DOMAIN = 'hunt_domain'
     ACTION_ID_HUNT_IP = 'hunt_ip'
@@ -81,9 +81,9 @@ class IntSightsConnector(BaseConnector):
     ERROR_MESSAGE_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters."
 
     # Constants relating to 'validate_integer'
-    INTSIGHTS_VALID_INT_MSG = "Please provide a valid integer value in the '{param}' parameter"
-    INTSIGHTS_NON_NEG_NON_ZERO_INT_MSG = "Please provide a valid non-zero positive integer value in '{param}' parameter"
-    INTSIGHTS_NON_NEG_INT_MSG = "Please provide a valid non-negative integer value in the '{param}' parameter"
+    INTSIGHTS_VALID_INT_MESSAGE = "Please provide a valid integer value in the '{param}' parameter"
+    INTSIGHTS_NON_NEG_NON_ZERO_INT_MESSAGE = "Please provide a valid non-zero positive integer value in '{param}' parameter"
+    INTSIGHTS_NON_NEG_INT_MESSAGE = "Please provide a valid non-negative integer value in the '{param}' parameter"
 
     def __init__(self):
         """Initialize global variables."""
@@ -131,18 +131,18 @@ class IntSightsConnector(BaseConnector):
         if parameter is not None:
             try:
                 if not float(parameter).is_integer():
-                    return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_VALID_INT_MSG.format(param=key)), None
+                    return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_VALID_INT_MESSAGE.format(param=key)), None
 
                 parameter = int(parameter)
             except Exception:
-                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_VALID_INT_MSG.format(param=key)), None
+                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_VALID_INT_MESSAGE.format(param=key)), None
 
             if parameter < 0:
-                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_NON_NEG_INT_MSG.format(param=key)), None
+                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_NON_NEG_INT_MESSAGE.format(param=key)), None
             if not allow_zero and parameter == 0:
                 return action_result.set_status(
                     phantom.APP_ERROR,
-                    self.INTSIGHTS_NON_NEG_NON_ZERO_INT_MSG.format(param=key)
+                    self.INTSIGHTS_NON_NEG_NON_ZERO_INT_MESSAGE.format(param=key)
                 ), None
 
         return phantom.APP_SUCCESS, parameter
@@ -531,7 +531,8 @@ class IntSightsConnector(BaseConnector):
                 return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_QUOTA_EXCEEDED)
 
             elif status == 'Failed':
-                return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_ENRICHMENT_FAILED.format(reason=ioc_data['FailedReason']))
+                message = self.INTSIGHTS_ERROR_ENRICHMENT_FAILED.format(reason=ioc_data['FailedReason'])
+                return action_result.set_status(phantom.APP_ERROR, message)
 
             elif status == 'Done':
                 action_result.add_data(ioc_data)
@@ -551,7 +552,7 @@ class IntSightsConnector(BaseConnector):
 
         action_id = self.get_action_identifier()
 
-        if action_id == self.ACTION_ID_TEST_ASSET_CONNECTIVITY:
+        if action_id == self.ACTION_ID_TEST_ASSET_CONNECTION:
             ret_val = self._test_asset_connectivity()
         elif action_id == self.ACTION_ID_HUNT_FILE:
             ret_val = self._hunt_file(param)
