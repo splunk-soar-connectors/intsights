@@ -1,6 +1,6 @@
 # File: intsights_connector.py
 #
-# Copyright (c) 2019-2022 IntSights Cyber Intelligence Ltd.
+# Copyright (c) 2019-2023 IntSights Cyber Intelligence Ltd.
 #
 # This unpublished material is proprietary to IntSights.
 # All rights reserved. The methods and
@@ -41,7 +41,6 @@ class IntSightsConnector(BaseConnector):
     INTSIGHTS_BASE_URL_V3 = 'https://api.ti.insight.rapid7.com/public/v3'
     INTSIGHTS_SEARCH_IOC_URL = INTSIGHTS_BASE_URL_V3 + '/iocs/ioc-by-value'
     INTSIGHTS_GET_API_VERSION_URL = INTSIGHTS_BASE_URL + '/api/version'
-    INTSIGHTS_GET_SOURCES_URL = INTSIGHTS_BASE_URL + '/iocs/sources'
     INTSIGHTS_GET_ALERTS_LIST_URL = INTSIGHTS_BASE_URL + '/data/alerts/alerts-list'
     INTSIGHTS_GET_COMPLETE_ALERT_URL = INTSIGHTS_BASE_URL + '/data/alerts/get-complete-alert/{alert_id}'
     INTSIGHTS_CLOSE_ALERT_URL = INTSIGHTS_BASE_URL + '/data/alerts/close-alert/{alert_id}'
@@ -65,7 +64,6 @@ class IntSightsConnector(BaseConnector):
     INTSIGHTS_ERROR_NO_CONTENT = 'No data was returned from IntSights'
     INTSIGHTS_ERROR_CONNECTION = 'Error getting data from IntSights. {error}'
     INTSIGHTS_ERROR_AUTH = 'Authentication error'
-    INTSIGHTS_ERROR_INIT_SOURCES = 'Failed to initiate sources map. {error}'
     INTSIGHTS_ERROR_CLOSE_ALERT = 'Failed to close alert ID {alert_id}'
     INTSIGHTS_ERROR_TAKEDOWN_ALERT = 'Failed to takedown alert ID {alert_id}'
     INTSIGHTS_ERROR_ENRICHMENT_TIMEOUT = 'Enrichment calls timed out with the following last response: '
@@ -88,7 +86,6 @@ class IntSightsConnector(BaseConnector):
         """Initialize global variables."""
         super(IntSightsConnector, self).__init__()
         self._session = None
-        self._sources = None
 
     def _get_error_message_from_exception(self, e):
         """
@@ -195,20 +192,6 @@ class IntSightsConnector(BaseConnector):
         self.save_progress(self.INTSIGHTS_CONNECTION_SUCCESSFUL)
         return action_result.set_status(phantom.APP_SUCCESS)
 
-    def _init_sources(self, action_result):
-        try:
-            sources_map = self._session.get(self.INTSIGHTS_GET_SOURCES_URL).json()
-            self._sources = {
-                value['_id']: value['Name']
-                for category in sources_map.values()
-                for value in category
-            }
-            return phantom.APP_SUCCESS
-        except Exception as e:
-            error_msg = self._get_error_message_from_exception(e)
-            self.save_progress(self.INTSIGHTS_ERROR_INIT_SOURCES.format(error=error_msg))
-            return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_INIT_SOURCES.format(error=error_msg))
-
     def _search_ioc(self, value, action_result):
 
         self.save_progress('Searching for IOC value: ' + value)
@@ -233,19 +216,11 @@ class IntSightsConnector(BaseConnector):
 
         ioc_data['InvestigationLink'] = self.INTSIGHTS_INVESTIGATION_LINK_URL.format(ioc=value)
 
-        source_name = ''
-        if self._sources:
-            source_name = self._sources.get(ioc_data.get('SourceID', ""))
-        ioc_data['SourceName'] = source_name
-
         return phantom.APP_SUCCESS, ioc_data
 
     def _hunt_file(self, param):
 
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
-        ret_val = self._init_sources(action_result)
-        if phantom.is_fail(ret_val):
-            return action_result.get_status()
 
         value = param['hash']
 
@@ -259,9 +234,6 @@ class IntSightsConnector(BaseConnector):
     def _hunt_domain(self, param):
 
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
-        ret_val = self._init_sources(action_result)
-        if phantom.is_fail(ret_val):
-            return action_result.get_status()
 
         value = param['domain']
 
@@ -275,9 +247,6 @@ class IntSightsConnector(BaseConnector):
     def _hunt_ip(self, param):
 
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
-        ret_val = self._init_sources(action_result)
-        if phantom.is_fail(ret_val):
-            return action_result.get_status()
 
         value = param['ip']
 
@@ -291,9 +260,6 @@ class IntSightsConnector(BaseConnector):
     def _hunt_url(self, param):
 
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
-        ret_val = self._init_sources(action_result)
-        if phantom.is_fail(ret_val):
-            return action_result.get_status()
 
         value = param['url']
 
