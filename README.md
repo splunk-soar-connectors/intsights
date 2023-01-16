@@ -11,7 +11,7 @@ Minimum Product Version: 5\.4\.0
 This app integrates with IntSights Cyber Intelligence
 
 [comment]: # " File: README.md"
-[comment]: # "  Copyright (c) 2019-2022 IntSights Cyber Intelligence Ltd."
+[comment]: # "  Copyright (c) 2019-2023 IntSights Cyber Intelligence Ltd."
 [comment]: # ""
 [comment]: # "  This unpublished material is proprietary to IntSights."
 [comment]: # "  All rights reserved. The methods and"

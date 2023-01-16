@@ -25,7 +25,7 @@
             "name": "Merak93"
         }
     ],
-    "license": "Copyright (c) 2019-2022 IntSights Cyber Intelligence Ltd.",
+    "license": "Copyright (c) 2019-2023 IntSights Cyber Intelligence Ltd.",
     "python_version": "3",
     "consolidate_widgets": false,
     "pip_dependencies": {
@@ -174,18 +174,6 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.parameter.ioc",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
@@ -194,7 +182,33 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.parameter.ioc",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.max_poll_cycles",
+                    "data_type": "numeric",
+                    "example_values": [
+                        15
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sleep_seconds",
+                    "data_type": "numeric",
+                    "example_values": [
+                        2
+                    ]
+                },
+                {
                     "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
                     "data_type": "string"
                 },
                 {
@@ -238,6 +252,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.hash",
                     "data_type": "string",
                     "contains": [
@@ -251,7 +273,89 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.Value",
+                    "data_path": "action_result.data.*.InvestigationLink",
+                    "data_type": "string",
+                    "column_name": "Link To Investigation",
+                    "column_order": 4,
+                    "example_values": [
+                        "https://dashboard.ti.insight.rapid7.com/#/tip/investigation/?"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.firstSeen",
+                    "data_type": "string",
+                    "column_name": "First Seen",
+                    "column_order": 1,
+                    "example_values": [
+                        "2021-10-27T11:58:22.352Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.lastSeen",
+                    "data_type": "string",
+                    "column_name": "Last Seen",
+                    "column_order": 2,
+                    "example_values": [
+                        "2021-10-27T11:58:22.352Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.lastUpdateDate",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-11-30T12:47:12.897Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.reportedFeeds.*.confidenceLevel",
+                    "data_type": "numeric",
+                    "example_values": [
+                        2
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.reportedFeeds.*.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "5d371bce2ab2d1c086e4681f"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.reportedFeeds.*.name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.score",
+                    "data_type": "numeric",
+                    "example_values": [
+                        100
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.severity",
+                    "data_type": "string",
+                    "column_name": "Severity",
+                    "column_order": 3,
+                    "example_values": [
+                        "High"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "Active"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.type",
+                    "data_type": "string",
+                    "example_values": [
+                        "Hashes"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.value",
                     "data_type": "string",
                     "contains": [
                         "hash",
@@ -266,57 +370,16 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.SourceName",
-                    "data_type": "string",
-                    "column_name": "Source",
-                    "column_order": 1,
+                    "data_path": "action_result.data.*.whitelisted",
+                    "data_type": "boolean",
                     "example_values": [
-                        "Cyware"
+                        true,
+                        false
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.FirstSeen",
-                    "data_type": "string",
-                    "column_name": "First Seen",
-                    "column_order": 2,
-                    "example_values": [
-                        "2021-10-27T11:58:22.352Z"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LastSeen",
-                    "data_type": "string",
-                    "column_name": "Last Seen",
-                    "column_order": 3,
-                    "example_values": [
-                        "2021-10-27T11:58:22.352Z"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.Severity.Value",
-                    "data_type": "string",
-                    "column_name": "Severity",
-                    "column_order": 4,
-                    "example_values": [
-                        "High"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.InvestigationLink",
-                    "data_type": "string",
-                    "column_name": "Link To Investigation",
-                    "column_order": 5,
-                    "example_values": [
-                        "https://dashboard.ti.insight.rapid7.com/#/tip/investigation/?"
-                    ]
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -324,10 +387,6 @@
                     "example_values": [
                         "Num results: 864"
                     ]
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -373,6 +432,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.domain",
                     "data_type": "string",
                     "contains": [
@@ -383,7 +450,89 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.Value",
+                    "data_path": "action_result.data.*.InvestigationLink",
+                    "data_type": "string",
+                    "column_name": "Link To Investigation",
+                    "column_order": 4,
+                    "example_values": [
+                        "https://dashboard.ti.insight.rapid7.com/#/tip/investigation/?"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.firstSeen",
+                    "data_type": "string",
+                    "column_name": "First Seen",
+                    "column_order": 1,
+                    "example_values": [
+                        "2021-10-27T11:58:22.352Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.lastSeen",
+                    "data_type": "string",
+                    "column_name": "Last Seen",
+                    "column_order": 2,
+                    "example_values": [
+                        "2021-10-27T11:58:22.352Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.lastUpdateDate",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-12-01T06:14:44.424Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.reportedFeeds.*.confidenceLevel",
+                    "data_type": "numeric",
+                    "example_values": [
+                        2
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.reportedFeeds.*.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "5d371bce2ab2d1c086e4681f"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.reportedFeeds.*.name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.score",
+                    "data_type": "numeric",
+                    "example_values": [
+                        40
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.severity",
+                    "data_type": "string",
+                    "column_name": "Severity",
+                    "column_order": 3,
+                    "example_values": [
+                        "High"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "Active"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.type",
+                    "data_type": "string",
+                    "example_values": [
+                        "Domains"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.value",
                     "data_type": "string",
                     "contains": [
                         "domain"
@@ -395,57 +544,16 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.SourceName",
-                    "data_type": "string",
-                    "column_name": "Source",
-                    "column_order": 1,
+                    "data_path": "action_result.data.*.whitelisted",
+                    "data_type": "boolean",
                     "example_values": [
-                        "Cyware"
+                        true,
+                        false
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.FirstSeen",
-                    "data_type": "string",
-                    "column_name": "First Seen",
-                    "column_order": 2,
-                    "example_values": [
-                        "2021-10-27T11:58:22.352Z"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LastSeen",
-                    "data_type": "string",
-                    "column_name": "Last Seen",
-                    "column_order": 3,
-                    "example_values": [
-                        "2021-10-27T11:58:22.352Z"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.Severity.Value",
-                    "data_type": "string",
-                    "column_name": "Severity",
-                    "column_order": 4,
-                    "example_values": [
-                        "High"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.InvestigationLink",
-                    "data_type": "string",
-                    "column_name": "Link To Investigation",
-                    "column_order": 5,
-                    "example_values": [
-                        "https://dashboard.ti.insight.rapid7.com/#/tip/investigation/?"
-                    ]
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -453,10 +561,6 @@
                     "example_values": [
                         "Num results: 864"
                     ]
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -502,6 +606,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.ip",
                     "data_type": "string",
                     "contains": [
@@ -512,7 +624,96 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.Value",
+                    "data_path": "action_result.data.*.InvestigationLink",
+                    "data_type": "string",
+                    "column_name": "Link To Investigation",
+                    "column_order": 4,
+                    "example_values": [
+                        "https://dashboard.ti.insight.rapid7.com/#/tip/investigation/?"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.firstSeen",
+                    "data_type": "string",
+                    "column_name": "First Seen",
+                    "column_order": 1,
+                    "example_values": [
+                        "2021-10-27T11:58:22.352Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.geolocation",
+                    "data_type": "string",
+                    "example_values": [
+                        "TH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.lastSeen",
+                    "data_type": "string",
+                    "column_name": "Last Seen",
+                    "column_order": 2,
+                    "example_values": [
+                        "2021-10-27T11:58:22.352Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.lastUpdateDate",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-12-01T06:13:20.368Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.reportedFeeds.*.confidenceLevel",
+                    "data_type": "numeric",
+                    "example_values": [
+                        2
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.reportedFeeds.*.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "5d14e1dd934af8feb2e45bce"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.reportedFeeds.*.name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.score",
+                    "data_type": "numeric",
+                    "example_values": [
+                        10
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.severity",
+                    "data_type": "string",
+                    "column_name": "Severity",
+                    "column_order": 3,
+                    "example_values": [
+                        "High"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "Active"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.type",
+                    "data_type": "string",
+                    "example_values": [
+                        "IpAddresses"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.value",
                     "data_type": "string",
                     "contains": [
                         "ip"
@@ -524,57 +725,16 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.SourceName",
-                    "data_type": "string",
-                    "column_name": "Source",
-                    "column_order": 1,
+                    "data_path": "action_result.data.*.whitelisted",
+                    "data_type": "boolean",
                     "example_values": [
-                        "Cyware"
+                        true,
+                        false
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.FirstSeen",
-                    "data_type": "string",
-                    "column_name": "First Seen",
-                    "column_order": 2,
-                    "example_values": [
-                        "2021-10-27T11:58:22.352Z"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LastSeen",
-                    "data_type": "string",
-                    "column_name": "Last Seen",
-                    "column_order": 3,
-                    "example_values": [
-                        "2021-10-27T11:58:22.352Z"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.Severity.Value",
-                    "data_type": "string",
-                    "column_name": "Severity",
-                    "column_order": 4,
-                    "example_values": [
-                        "High"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.InvestigationLink",
-                    "data_type": "string",
-                    "column_name": "Link To Investigation",
-                    "column_order": 5,
-                    "example_values": [
-                        "https://dashboard.ti.insight.rapid7.com/#/tip/investigation/?"
-                    ]
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -582,10 +742,6 @@
                     "example_values": [
                         "Num results: 864"
                     ]
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -631,6 +787,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.url",
                     "data_type": "string",
                     "contains": [
@@ -641,7 +805,92 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.Value",
+                    "data_path": "action_result.data.*.InvestigationLink",
+                    "data_type": "string",
+                    "column_name": "Link To Investigation",
+                    "column_order": 4,
+                    "example_values": [
+                        "https://dashboard.ti.insight.rapid7.com/#/tip/investigation/?"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.firstSeen",
+                    "data_type": "string",
+                    "column_name": "First Seen",
+                    "column_order": 1,
+                    "example_values": [
+                        "2021-10-27T11:58:22.352Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.lastSeen",
+                    "data_type": "string",
+                    "column_name": "Last Seen",
+                    "column_order": 2,
+                    "example_values": [
+                        "2021-10-27T11:58:22.352Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.lastUpdateDate",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-12-01T04:41:58.510Z"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.reportedFeeds.*.confidenceLevel",
+                    "data_type": "numeric",
+                    "example_values": [
+                        2
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.reportedFeeds.*.id",
+                    "data_type": "string",
+                    "example_values": [
+                        "5b68306df84f7c8696047fdd"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.reportedFeeds.*.name",
+                    "data_type": "string",
+                    "example_values": [
+                        "URLhaus"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.score",
+                    "data_type": "numeric",
+                    "example_values": [
+                        13.2967032967033
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.severity",
+                    "data_type": "string",
+                    "column_name": "Severity",
+                    "column_order": 3,
+                    "example_values": [
+                        "High"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "Active"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.type",
+                    "data_type": "string",
+                    "example_values": [
+                        "Urls"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.value",
                     "data_type": "string",
                     "contains": [
                         "url"
@@ -653,57 +902,16 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.SourceName",
-                    "data_type": "string",
-                    "column_name": "Source",
-                    "column_order": 1,
+                    "data_path": "action_result.data.*.whitelisted",
+                    "data_type": "boolean",
                     "example_values": [
-                        "Cyware"
+                        true,
+                        false
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.FirstSeen",
-                    "data_type": "string",
-                    "column_name": "First Seen",
-                    "column_order": 2,
-                    "example_values": [
-                        "2021-10-27T11:58:22.352Z"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.LastSeen",
-                    "data_type": "string",
-                    "column_name": "Last Seen",
-                    "column_order": 3,
-                    "example_values": [
-                        "2021-10-27T11:58:22.352Z"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.Severity.Value",
-                    "data_type": "string",
-                    "column_name": "Severity",
-                    "column_order": 4,
-                    "example_values": [
-                        "High"
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.InvestigationLink",
-                    "data_type": "string",
-                    "column_name": "Link To Investigation",
-                    "column_order": 5,
-                    "example_values": [
-                        "https://dashboard.ti.insight.rapid7.com/#/tip/investigation/?"
-                    ]
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -711,10 +919,6 @@
                     "example_values": [
                         "Num results: 864"
                     ]
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -834,33 +1038,14 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.parameter.rate",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.free_text",
+                    "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
-                        "closed for testing"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.reason",
-                    "data_type": "string",
-                    "example_values": [
-                        "noothing"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.is_hidden",
-                    "data_type": "boolean",
-                    "example_values": [
-                        true,
-                        false
-                    ]
+                        "success",
+                        "failed"
+                    ],
+                    "column_name": "Status",
+                    "column_order": 2
                 },
                 {
                     "data_path": "action_result.parameter.alert_id",
@@ -875,7 +1060,40 @@
                     "column_order": 0
                 },
                 {
+                    "data_path": "action_result.parameter.free_text",
+                    "data_type": "string",
+                    "example_values": [
+                        "closed for testing"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.is_hidden",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true,
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.rate",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.reason",
+                    "data_type": "string",
+                    "example_values": [
+                        "noothing"
+                    ]
+                },
+                {
                     "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary",
                     "data_type": "string"
                 },
                 {
@@ -886,20 +1104,6 @@
                     ],
                     "column_name": "Message",
                     "column_order": 1
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ],
-                    "column_name": "Status",
-                    "column_order": 2
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -944,6 +1148,16 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ],
+                    "column_name": "Status",
+                    "column_order": 2
+                },
+                {
                     "data_path": "action_result.parameter.alert_id",
                     "data_type": "string",
                     "example_values": [
@@ -960,6 +1174,10 @@
                     "data_type": "string"
                 },
                 {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
@@ -967,20 +1185,6 @@
                     ],
                     "column_name": "Message",
                     "column_order": 1
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ],
-                    "column_name": "Status",
-                    "column_order": 2
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -998,6 +1202,5 @@
                 }
             ]
         }
-    ],
-    "utctime_updated": "2022-01-19T10:05:05.000000Z"
+    ]
 }
