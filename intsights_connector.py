@@ -221,6 +221,7 @@ class IntSightsConnector(BaseConnector):
 
     def _hunt_file(self, param):
 
+        self.debug_print('Starting file hunt')
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
 
         value = param['hash']
@@ -234,6 +235,7 @@ class IntSightsConnector(BaseConnector):
 
     def _hunt_domain(self, param):
 
+        self.debug_print('Starting domain hunt')
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
 
         value = param['domain']
@@ -247,6 +249,7 @@ class IntSightsConnector(BaseConnector):
 
     def _hunt_ioc(self, param):
 
+        self.debug_print('Starting IOC hunt')
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
 
         value = param['hunting']
@@ -260,6 +263,7 @@ class IntSightsConnector(BaseConnector):
 
     def _hunt_ip(self, param):
 
+        self.debug_print('Starting IP hunt')
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
 
         value = param['ip']
@@ -273,6 +277,7 @@ class IntSightsConnector(BaseConnector):
 
     def _hunt_url(self, param):
 
+        self.debug_print('Starting URL hunt')
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
 
         value = param['url']
