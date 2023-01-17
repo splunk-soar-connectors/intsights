@@ -2,16 +2,16 @@
 # IntSights
 
 Publisher: IntSights  
-Connector Version: 4\.1\.0  
+Connector Version: 4\.2\.0  
 Product Vendor: IntSights  
 Product Name: IntSights Cyber Intelligence  
 Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 5\.3\.4  
+Minimum Product Version: 5\.4\.0  
 
 This app integrates with IntSights Cyber Intelligence
 
 [comment]: # " File: README.md"
-[comment]: # "  Copyright (c) 2019-2022 IntSights Cyber Intelligence Ltd."
+[comment]: # "  Copyright (c) 2019-2023 IntSights Cyber Intelligence Ltd."
 [comment]: # ""
 [comment]: # "  This unpublished material is proprietary to IntSights."
 [comment]: # "  All rights reserved. The methods and"
@@ -51,6 +51,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions  
 [test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity  
+[hunt ioc](#action-hunt-ioc) - Look for information about an ioc in the Intsights database  
 [enrich ioc](#action-enrich-ioc) - Get enrichment information on IOC using the \(paid\) enrich API endpoint  
 [hunt file](#action-hunt-file) - Look for information about a file hash in the Intsights database  
 [hunt domain](#action-hunt-domain) - Look for information about a domain in the Intsights database  
@@ -72,6 +73,28 @@ No parameters are required for this action
 #### Action Output
 No Output  
 
+## action: 'hunt ioc'
+Look for information about an ioc in the Intsights database
+
+Type: **investigate**  
+Read only: **True**
+
+#### Action Parameters
+PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
+--------- | -------- | ----------- | ---- | --------
+**hunting** |  required  | Look for information about an ioc in the Intsights database | string | 
+
+#### Action Output
+DATA PATH | TYPE | CONTAINS
+--------- | ---- | --------
+action\_result\.parameter\.hunting | string | 
+action\_result\.message | string | 
+action\_result\.summary | string | 
+action\_result\.status | string | 
+action\_result\.data | string | 
+summary\.total\_objects | numeric | 
+summary\.total\_objects\_successful | numeric |   
+
 ## action: 'enrich ioc'
 Get enrichment information on IOC using the \(paid\) enrich API endpoint
 
@@ -81,18 +104,20 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**ioc** |  required  | The IOC to enrich | string |  `hash`  `sha256`  `sha1`  `md5`  `domain`  `ip`  `url` 
+**ioc** |  required  | The IOC to enrich | string | 
 **max\_poll\_cycles** |  required  | The maximum amount of poll cycles to wait before erroring out | numeric | 
 **sleep\_seconds** |  required  | The amount of seconds to sleep before trying to poll the endpoint again for results | numeric | 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS
 --------- | ---- | --------
-action\_result\.parameter\.ioc | string |  `hash`  `sha256`  `sha1`  `md5`  `domain`  `ip`  `url` 
-action\_result\.message | string | 
-action\_result\.summary | string | 
 action\_result\.status | string | 
+action\_result\.parameter\.ioc | string | 
+action\_result\.parameter\.max\_poll\_cycles | numeric | 
+action\_result\.parameter\.sleep\_seconds | numeric | 
 action\_result\.data | string | 
+action\_result\.summary | string | 
+action\_result\.message | string | 
 summary\.total\_objects | numeric | 
 summary\.total\_objects\_successful | numeric |   
 
@@ -110,16 +135,23 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS
 --------- | ---- | --------
-action\_result\.parameter\.hash | string |  `hash`  `sha256`  `sha1`  `md5` 
-action\_result\.data\.\*\.Value | string |  `hash`  `sha256`  `sha1`  `md5` 
-action\_result\.data\.\*\.SourceName | string | 
-action\_result\.data\.\*\.FirstSeen | string | 
-action\_result\.data\.\*\.LastSeen | string | 
-action\_result\.data\.\*\.Severity\.Value | string | 
-action\_result\.data\.\*\.InvestigationLink | string | 
 action\_result\.status | string | 
-action\_result\.message | string | 
+action\_result\.parameter\.hash | string |  `hash`  `sha256`  `sha1`  `md5` 
+action\_result\.data\.\*\.InvestigationLink | string | 
+action\_result\.data\.\*\.firstSeen | string | 
+action\_result\.data\.\*\.lastSeen | string | 
+action\_result\.data\.\*\.lastUpdateDate | string | 
+action\_result\.data\.\*\.reportedFeeds\.\*\.confidenceLevel | numeric | 
+action\_result\.data\.\*\.reportedFeeds\.\*\.id | string | 
+action\_result\.data\.\*\.reportedFeeds\.\*\.name | string | 
+action\_result\.data\.\*\.score | numeric | 
+action\_result\.data\.\*\.severity | string | 
+action\_result\.data\.\*\.status | string | 
+action\_result\.data\.\*\.type | string | 
+action\_result\.data\.\*\.value | string |  `hash`  `sha256`  `sha1`  `md5` 
+action\_result\.data\.\*\.whitelisted | boolean | 
 action\_result\.summary | string | 
+action\_result\.message | string | 
 summary\.total\_objects | numeric | 
 summary\.total\_objects\_successful | numeric |   
 
@@ -137,16 +169,23 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS
 --------- | ---- | --------
-action\_result\.parameter\.domain | string |  `domain` 
-action\_result\.data\.\*\.Value | string |  `domain` 
-action\_result\.data\.\*\.SourceName | string | 
-action\_result\.data\.\*\.FirstSeen | string | 
-action\_result\.data\.\*\.LastSeen | string | 
-action\_result\.data\.\*\.Severity\.Value | string | 
-action\_result\.data\.\*\.InvestigationLink | string | 
 action\_result\.status | string | 
-action\_result\.message | string | 
+action\_result\.parameter\.domain | string |  `domain` 
+action\_result\.data\.\*\.InvestigationLink | string | 
+action\_result\.data\.\*\.firstSeen | string | 
+action\_result\.data\.\*\.lastSeen | string | 
+action\_result\.data\.\*\.lastUpdateDate | string | 
+action\_result\.data\.\*\.reportedFeeds\.\*\.confidenceLevel | numeric | 
+action\_result\.data\.\*\.reportedFeeds\.\*\.id | string | 
+action\_result\.data\.\*\.reportedFeeds\.\*\.name | string | 
+action\_result\.data\.\*\.score | numeric | 
+action\_result\.data\.\*\.severity | string | 
+action\_result\.data\.\*\.status | string | 
+action\_result\.data\.\*\.type | string | 
+action\_result\.data\.\*\.value | string |  `domain` 
+action\_result\.data\.\*\.whitelisted | boolean | 
 action\_result\.summary | string | 
+action\_result\.message | string | 
 summary\.total\_objects | numeric | 
 summary\.total\_objects\_successful | numeric |   
 
@@ -164,16 +203,24 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS
 --------- | ---- | --------
-action\_result\.parameter\.ip | string |  `ip` 
-action\_result\.data\.\*\.Value | string |  `ip` 
-action\_result\.data\.\*\.SourceName | string | 
-action\_result\.data\.\*\.FirstSeen | string | 
-action\_result\.data\.\*\.LastSeen | string | 
-action\_result\.data\.\*\.Severity\.Value | string | 
-action\_result\.data\.\*\.InvestigationLink | string | 
 action\_result\.status | string | 
-action\_result\.message | string | 
+action\_result\.parameter\.ip | string |  `ip` 
+action\_result\.data\.\*\.InvestigationLink | string | 
+action\_result\.data\.\*\.firstSeen | string | 
+action\_result\.data\.\*\.geolocation | string | 
+action\_result\.data\.\*\.lastSeen | string | 
+action\_result\.data\.\*\.lastUpdateDate | string | 
+action\_result\.data\.\*\.reportedFeeds\.\*\.confidenceLevel | numeric | 
+action\_result\.data\.\*\.reportedFeeds\.\*\.id | string | 
+action\_result\.data\.\*\.reportedFeeds\.\*\.name | string | 
+action\_result\.data\.\*\.score | numeric | 
+action\_result\.data\.\*\.severity | string | 
+action\_result\.data\.\*\.status | string | 
+action\_result\.data\.\*\.type | string | 
+action\_result\.data\.\*\.value | string |  `ip` 
+action\_result\.data\.\*\.whitelisted | boolean | 
 action\_result\.summary | string | 
+action\_result\.message | string | 
 summary\.total\_objects | numeric | 
 summary\.total\_objects\_successful | numeric |   
 
@@ -191,16 +238,23 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS
 --------- | ---- | --------
-action\_result\.parameter\.url | string |  `url` 
-action\_result\.data\.\*\.Value | string |  `url` 
-action\_result\.data\.\*\.SourceName | string | 
-action\_result\.data\.\*\.FirstSeen | string | 
-action\_result\.data\.\*\.LastSeen | string | 
-action\_result\.data\.\*\.Severity\.Value | string | 
-action\_result\.data\.\*\.InvestigationLink | string | 
 action\_result\.status | string | 
-action\_result\.message | string | 
+action\_result\.parameter\.url | string |  `url` 
+action\_result\.data\.\*\.InvestigationLink | string | 
+action\_result\.data\.\*\.firstSeen | string | 
+action\_result\.data\.\*\.lastSeen | string | 
+action\_result\.data\.\*\.lastUpdateDate | string | 
+action\_result\.data\.\*\.reportedFeeds\.\*\.confidenceLevel | numeric | 
+action\_result\.data\.\*\.reportedFeeds\.\*\.id | string | 
+action\_result\.data\.\*\.reportedFeeds\.\*\.name | string | 
+action\_result\.data\.\*\.score | numeric | 
+action\_result\.data\.\*\.severity | string | 
+action\_result\.data\.\*\.status | string | 
+action\_result\.data\.\*\.type | string | 
+action\_result\.data\.\*\.value | string |  `url` 
+action\_result\.data\.\*\.whitelisted | boolean | 
 action\_result\.summary | string | 
+action\_result\.message | string | 
 summary\.total\_objects | numeric | 
 summary\.total\_objects\_successful | numeric |   
 
@@ -240,15 +294,15 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS
 --------- | ---- | --------
-action\_result\.parameter\.rate | numeric | 
-action\_result\.parameter\.free\_text | string | 
-action\_result\.parameter\.reason | string | 
-action\_result\.parameter\.is\_hidden | boolean | 
-action\_result\.parameter\.alert\_id | string |  `intsights alert id` 
-action\_result\.data | string | 
-action\_result\.message | string | 
 action\_result\.status | string | 
+action\_result\.parameter\.alert\_id | string |  `intsights alert id` 
+action\_result\.parameter\.free\_text | string | 
+action\_result\.parameter\.is\_hidden | boolean | 
+action\_result\.parameter\.rate | numeric | 
+action\_result\.parameter\.reason | string | 
+action\_result\.data | string | 
 action\_result\.summary | string | 
+action\_result\.message | string | 
 summary\.total\_objects | numeric | 
 summary\.total\_objects\_successful | numeric |   
 
@@ -266,10 +320,10 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 #### Action Output
 DATA PATH | TYPE | CONTAINS
 --------- | ---- | --------
+action\_result\.status | string | 
 action\_result\.parameter\.alert\_id | string |  `intsights alert id` 
 action\_result\.data | string | 
-action\_result\.message | string | 
-action\_result\.status | string | 
 action\_result\.summary | string | 
+action\_result\.message | string | 
 summary\.total\_objects | numeric | 
 summary\.total\_objects\_successful | numeric | 
