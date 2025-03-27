@@ -1,9 +1,29 @@
 Splunk SOAR IntSights
-Copyright (c) 2019-2023 IntSights Cyber Intelligence Ltd.
+Copyright (c) 2019-2025 IntSights Cyber Intelligence Ltd.
 
-Third-party Software Attributions:
+Third Party Software Attributions:
 
-Library: requests
+Name: certifi
+Version: 2025.1.31
+Author: Kenneth Reitz
+License: MPL-2.0
+
+Name: chardet
+Version: 3.0.4
+Author: Daniel Blanchard
+License: LGPL
+
+Name: idna
+Version: 2.10
+Author: Kim Davies
+License: BSD-like
+
+Name: requests
 Version: 2.25.0
+Author: Kenneth Reitz
 License: Apache 2.0
-Kenneth Reitz
+
+Name: urllib3
+Version: 1.26.20
+Author: Andrey Petrov
+License: MIT
