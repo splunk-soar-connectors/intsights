@@ -1,6 +1,6 @@
 # File: intsights_connector.py
 #
-# Copyright (c) 2019-2025 IntSights Cyber Intelligence Ltd.
+# Copyright (c) 2019-2026 IntSights Cyber Intelligence Ltd.
 #
 # This unpublished material is proprietary to IntSights.
 # All rights reserved. The methods and

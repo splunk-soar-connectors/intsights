@@ -1,9 +1,9 @@
 # IntSights
 
-Publisher: IntSights \
-Connector Version: 4.2.1 \
-Product Vendor: IntSights \
-Product Name: IntSights Cyber Intelligence \
+Publisher: IntSights <br>
+Connector Version: 4.2.1 <br>
+Product Vendor: IntSights <br>
+Product Name: IntSights Cyber Intelligence <br>
 Minimum Product Version: 5.4.0
 
 This app integrates with IntSights Cyber Intelligence
@@ -19,22 +19,22 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions
 
-[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity \
-[hunt ioc](#action-hunt-ioc) - Look for information about an ioc in the Intsights database \
-[enrich ioc](#action-enrich-ioc) - Get enrichment information on IOC using the (paid) enrich API endpoint \
-[hunt file](#action-hunt-file) - Look for information about a file hash in the Intsights database \
-[hunt domain](#action-hunt-domain) - Look for information about a domain in the Intsights database \
-[hunt ip](#action-hunt-ip) - Look for information about an IP in the Intsights database \
-[hunt url](#action-hunt-url) - Look for information about a URL in the Intsights database \
-[on poll](#action-on-poll) - Callback action for the on_poll ingest functionality \
-[close alert](#action-close-alert) - Close an alert in the IntSights dashboard \
+[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity <br>
+[hunt ioc](#action-hunt-ioc) - Look for information about an ioc in the Intsights database <br>
+[enrich ioc](#action-enrich-ioc) - Get enrichment information on IOC using the (paid) enrich API endpoint <br>
+[hunt file](#action-hunt-file) - Look for information about a file hash in the Intsights database <br>
+[hunt domain](#action-hunt-domain) - Look for information about a domain in the Intsights database <br>
+[hunt ip](#action-hunt-ip) - Look for information about an IP in the Intsights database <br>
+[hunt url](#action-hunt-url) - Look for information about a URL in the Intsights database <br>
+[on poll](#action-on-poll) - Callback action for the on_poll ingest functionality <br>
+[close alert](#action-close-alert) - Close an alert in the IntSights dashboard <br>
 [takedown request](#action-takedown-request) - Initiate a takedown request of an alert from the IntSights dashboard
 
 ## action: 'test connectivity'
 
 Validate the asset configuration for connectivity
 
-Type: **test** \
+Type: **test** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -49,7 +49,7 @@ No Output
 
 Look for information about an ioc in the Intsights database
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -74,7 +74,7 @@ summary.total_objects_successful | numeric | | |
 
 Get enrichment information on IOC using the (paid) enrich API endpoint
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -103,7 +103,7 @@ summary.total_objects_successful | numeric | | |
 
 Look for information about a file hash in the Intsights database
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -140,7 +140,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Look for information about a domain in the Intsights database
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -177,7 +177,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Look for information about an IP in the Intsights database
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -215,7 +215,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Look for information about a URL in the Intsights database
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -252,7 +252,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Callback action for the on_poll ingest functionality
 
-Type: **ingest** \
+Type: **ingest** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -273,7 +273,7 @@ No Output
 
 Close an alert in the IntSights dashboard
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -306,7 +306,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Initiate a takedown request of an alert from the IntSights dashboard
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -331,7 +331,7 @@ ______________________________________________________________________
 
 Auto-generated Splunk SOAR Connector documentation.
 
-Copyright 2025 Splunk Inc.
+Copyright 2026 Splunk Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
