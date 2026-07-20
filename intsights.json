@@ -25,8 +25,8 @@
             "name": "Merak93"
         }
     ],
-    "license": "Copyright (c) 2019-2025 IntSights Cyber Intelligence Ltd.",
-    "python_version": "3",
+    "license": "Copyright (c) 2019-2026 IntSights Cyber Intelligence Ltd.",
+    "python_version": "3.9, 3.13",
     "consolidate_widgets": false,
     "configuration": {
         "account_id": {
@@ -1187,5 +1187,13 @@
             }
         ]
     },
-    "utctime_updated": "2025-04-28T19:54:13.340058Z"
+    "utctime_updated": "2025-04-28T19:54:13.340058Z",
+    "pip313_dependencies": {
+        "wheel": [
+            {
+                "module": "chardet",
+                "input_file": "wheels/shared/chardet-3.0.4-py2.py3-none-any.whl"
+            }
+        ]
+    }
 }

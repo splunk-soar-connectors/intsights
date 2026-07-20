@@ -1,6 +1,6 @@
 # File: intsights_connector.py
 #
-# Copyright (c) 2019-2025 IntSights Cyber Intelligence Ltd.
+# Copyright (c) 2019-2026 IntSights Cyber Intelligence Ltd.
 #
 # This unpublished material is proprietary to IntSights.
 # All rights reserved. The methods and
@@ -21,7 +21,7 @@
 # and limitations under the License.
 
 import time
-from urllib.parse import unquote
+from urllib.parse import quote, unquote
 
 # Phantom imports
 import phantom.app as phantom
@@ -354,7 +354,8 @@ class IntSightsConnector(BaseConnector):
 
         try:
             for alert_id in alert_ids:
-                alert = self._session.get(self.INTSIGHTS_GET_COMPLETE_ALERT_URL.format(alert_id=alert_id)).json()
+                encoded_alert_id = quote(str(alert_id), safe="")
+                alert = self._session.get(self.INTSIGHTS_GET_COMPLETE_ALERT_URL.format(alert_id=encoded_alert_id)).json()
                 artifact = self._get_artifact(alert)
                 container = {
                     "name": "{title} - {id}".format(title=alert.get("Details", {}).get("Title"), id=alert_id),
@@ -413,12 +414,13 @@ class IntSightsConnector(BaseConnector):
 
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
         alert_id = param["alert_id"]
+        encoded_alert_id = quote(str(alert_id), safe="")
         ret_val, closure_json = self._get_closure_json(param, action_result)
         if phantom.is_fail(ret_val):
             return action_result.get_status()
 
         try:
-            response = self._session.patch(self.INTSIGHTS_CLOSE_ALERT_URL.format(alert_id=alert_id), json=closure_json)
+            response = self._session.patch(self.INTSIGHTS_CLOSE_ALERT_URL.format(alert_id=encoded_alert_id), json=closure_json)
             if response.status_code in [400, 403, 500]:
                 return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_CLOSE_ALERT.format(alert_id=alert_id))
             response.raise_for_status()
@@ -433,9 +435,10 @@ class IntSightsConnector(BaseConnector):
         self.debug_print("Starting takedown request")
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
         alert_id = param["alert_id"]
+        encoded_alert_id = quote(str(alert_id), safe="")
 
         try:
-            response = self._session.patch(self.INTSIGHTS_ALERT_TAKEDOWN_URL.format(alert_id=alert_id))
+            response = self._session.patch(self.INTSIGHTS_ALERT_TAKEDOWN_URL.format(alert_id=encoded_alert_id))
             if response.status_code in [400, 403, 500]:
                 return action_result.set_status(phantom.APP_ERROR, self.INTSIGHTS_ERROR_TAKEDOWN_ALERT.format(alert_id=alert_id))
             response.raise_for_status()
@@ -451,12 +454,13 @@ class IntSightsConnector(BaseConnector):
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
 
         ioc = param["ioc"]
+        encoded_ioc = quote(str(ioc), safe="")
         max_poll_cycles = param["max_poll_cycles"]
         sleep_seconds = param["sleep_seconds"]
 
         for x in range(max_poll_cycles):
             try:
-                response = self._session.get(f"{self.INTSIGHTS_ENRICH_IOC_URL}/{ioc}")
+                response = self._session.get(f"{self.INTSIGHTS_ENRICH_IOC_URL}/{encoded_ioc}")
                 if response.status_code == 204:
                     return action_result.set_status(phantom.APP_SUCCESS, self.INTSIGHTS_ERROR_NO_CONTENT)
                 response.raise_for_status()
