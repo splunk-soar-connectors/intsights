@@ -1,7 +1,7 @@
 # IntSights
 
 Publisher: IntSights <br>
-Connector Version: 4.2.1 <br>
+Connector Version: 4.2.2 <br>
 Product Vendor: IntSights <br>
 Product Name: IntSights Cyber Intelligence <br>
 Minimum Product Version: 5.4.0
