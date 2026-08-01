@@ -141,6 +141,13 @@ class IntSightsConnector(BaseConnector):
 
         return phantom.APP_SUCCESS, parameter
 
+    def _validate_path_segment(self, action_result, parameter, key):
+        parameter = str(parameter)
+        if parameter in {".", ".."}:
+            return action_result.set_status(phantom.APP_ERROR, f"Please provide a valid value in the '{key}' parameter"), None
+
+        return phantom.APP_SUCCESS, quote(parameter, safe="")
+
     def initialize(self):
         """Initialize the global variables with its value and validate it."""
         config = self.get_config()
@@ -354,7 +361,10 @@ class IntSightsConnector(BaseConnector):
 
         try:
             for alert_id in alert_ids:
-                encoded_alert_id = quote(str(alert_id), safe="")
+                ret_val, encoded_alert_id = self._validate_path_segment(action_result, alert_id, "alert_id")
+                if phantom.is_fail(ret_val):
+                    return action_result.get_status()
+
                 alert = self._session.get(self.INTSIGHTS_GET_COMPLETE_ALERT_URL.format(alert_id=encoded_alert_id)).json()
                 artifact = self._get_artifact(alert)
                 container = {
@@ -364,7 +374,7 @@ class IntSightsConnector(BaseConnector):
                     "source_data_identifier": alert_id,
                 }
 
-                status, msg, container_id_ = self.save_container(container)
+                status, _msg, container_id_ = self.save_container(container)
 
                 if phantom.is_fail(status):
                     self.save_progress(self.PHANTOM_ERROR_SAVE_CONTAINER.format(alert_id=alert_id))
@@ -372,7 +382,7 @@ class IntSightsConnector(BaseConnector):
                     return action_result.set_status(phantom.APP_ERROR, self.PHANTOM_ERROR_SAVE_CONTAINER.format(alert_id=alert_id))
 
                 artifact["container_id"] = container_id_
-                status, message, _ = self.save_artifacts([artifact])
+                status, _message, _ = self.save_artifacts([artifact])
 
                 if phantom.is_fail(status):
                     self.save_progress(self.PHANTOM_ERROR_SAVE_ARTIFACT.format(alert_id=alert_id))
@@ -414,7 +424,10 @@ class IntSightsConnector(BaseConnector):
 
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
         alert_id = param["alert_id"]
-        encoded_alert_id = quote(str(alert_id), safe="")
+        ret_val, encoded_alert_id = self._validate_path_segment(action_result, alert_id, "alert_id")
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
+
         ret_val, closure_json = self._get_closure_json(param, action_result)
         if phantom.is_fail(ret_val):
             return action_result.get_status()
@@ -435,7 +448,9 @@ class IntSightsConnector(BaseConnector):
         self.debug_print("Starting takedown request")
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
         alert_id = param["alert_id"]
-        encoded_alert_id = quote(str(alert_id), safe="")
+        ret_val, encoded_alert_id = self._validate_path_segment(action_result, alert_id, "alert_id")
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
 
         try:
             response = self._session.patch(self.INTSIGHTS_ALERT_TAKEDOWN_URL.format(alert_id=encoded_alert_id))
@@ -454,7 +469,10 @@ class IntSightsConnector(BaseConnector):
         action_result = self.add_action_result(phantom.ActionResult(dict(param)))
 
         ioc = param["ioc"]
-        encoded_ioc = quote(str(ioc), safe="")
+        ret_val, encoded_ioc = self._validate_path_segment(action_result, ioc, "ioc")
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
+
         max_poll_cycles = param["max_poll_cycles"]
         sleep_seconds = param["sleep_seconds"]
 
